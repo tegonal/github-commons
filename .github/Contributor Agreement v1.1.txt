@@ -4,9 +4,9 @@ This agreement is based on the ISA contributor agreement
 https://joinup.ec.europa.eu/collection/eupl/solution/isa-contributor-agreement/release/v11
 which was based in turn on the Harmony contributor agreements harmonyagreements.org.
 Thank you for your interest in contributing to
-  one of our projects
+  <PROJECT_NAME>
 currently developed on the platform
-  https://github.com/tegonal/
+  https://github.com/tegonal/<PROJECT_NAME>
 and owned by 
   Tegonal Genossenschaft, Switzerland (the “Project Owner”, hereafter "We" or "Us").
 
@@ -118,11 +118,11 @@ To the extend the Work includes software (source code or binaries):
 •	The Apache License 2.0 or later
 To the extend the Work includes Media:
 •	The ISA Open Metadata Licence v1.1 or later
- Without prejudice to the former conditions - and for the exclusive purpose of ensuring 
+Without prejudice to the former conditions - and for the exclusive purpose of ensuring
 copyleft compatibility, We may licence the Contribution under any licences which are 
 approved by the Open Source Initiative, or the Free Software Foundation, or Creative 
 Commons or equivalent non-proprietary licences published by the European Commission on 
-or after the Effective Date, including both permissive and copyleft licences, whether or not 
+or after the Effective Date, including both permissive and copyleft licences, whether or not
 such licences are subsequently disapproved by relevant organisations (including any right to 
 adopt any future version of these licences).
 
