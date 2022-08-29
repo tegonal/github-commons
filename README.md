@@ -20,6 +20,14 @@ This repository contains files we are (re-)using in our OSS work published on gi
 Feel free to use them as well, they are licensed under [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).  
 (Take also a look at our bash [scripts](https://github.com/tegonal/scripts) which are licensed under Apache 2.0)
 
+**Table of Content**
+- [How to use it](#how-to-use-it)
+- [Contributors and contribute](#contributors-and-contribute)
+- [License](#license)
+
+
+# How to use it
+
 Typically, we fetch the files of this repository via [gget](https://github.com/tegonal/gget) into our projects.  
 If you want to fetch them with gget as well then set up a corresponding remote
 ```bash
@@ -28,8 +36,52 @@ gget remote add -r tegonal-gh-commons -u https://github.com/tegonal/github-commo
 
 Now you can pull the files you want. For instance, to retrieve the dependabot.yml and put it into .github
 ```bash
-gget pull -r tegonal-gh-commons -p .github/dependabot.yml --chop-path true -d .github
+gget pull -r tegonal-gh-commons -p src/.github/dependabot.yml --chop-path true -d .github
 ```
+
+# Placeholders
+
+Some files contain placeholders which you should replace.
+We provide bash functions which you can source into your pull-hook.sh and use to fill those.
+Get them was well via gget
+```
+gget pull -r tegonal-gh-commons -p src/gget/pull-hook-functions.sh
+```
+
+However, they require the utility functions of [tegonal-scripts](https://github.com/tegonal/scripts) to be fetched alongside of github-commons.
+Thus, if you have not already pulled tegonal-scripts, then [gget them](https://github.com/tegonal/scripts#Installation]).
+
+And then in your pull-hook.sh you can use it as follows:
+
+<gget-pull-hook-functions>
+
+<!-- auto-generated, do not modify here but in src/gget/pull-hook-functions.sh -->
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+shopt -s inherit_errexit
+MY_PROJECT_LATEST_VERSION="v1.0.0"
+
+# Assumes tegonal's github-commons was fetched with gget - adjust location accordingly
+dir_of_github_commons="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/../lib/tegonal-gh-common/src"
+
+if ! [[ -v dir_of_tegonal_scripts ]]; then
+	dir_of_tegonal_scripts="$dir_of_github_commons/../tegonal-scripts/src"
+	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
+fi
+
+source "$dir_of_github_commons/gget/pull-hook-functions.sh"
+
+declare _tag=$1 source=$2 _target=$3
+shift 3 || die "could not shift by 3"
+
+replacePlaceholdersContributorsAgreement "$source" "my-project-name"
+replacePlaceholderPullRequestTemplate "$source" "https://github.com/tegonal/my-project-name" "$MY_PROJECT_LATEST_VERSION"
+
+# also have a look at https://github.com/tegonal/gget/blob/main/.gget/remotes/tegonal-scripts/pull-hook.sh
+```
+
+</gget-pull-hook-functions>
 
 # Contributors and contribute
 
