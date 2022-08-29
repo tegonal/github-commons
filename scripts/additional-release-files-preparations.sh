@@ -33,7 +33,7 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 fi
 sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
 
-if ! [[ -v version ]]; then
+if ! [[ -v version ]] || [[ -z $version ]]; then
 	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
 fi
 

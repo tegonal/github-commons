@@ -57,6 +57,7 @@ function replacePlaceholdersContributorsAgreement() {
 		logError "you need to pass two arguments to replacePlaceholdersContributorsAgreement"
 		echo "1: file         represents the 'Contributor Agreement.txt'"
 		echo "2: projectName  the name of the project"
+		printStackTrace
 		exit 9
 	fi
 	local -r file=$1
@@ -71,6 +72,7 @@ function replacePlaceholderPullRequestTemplate() {
 		echo "1: file        represents the 'PULL_REQUEST_TEMPLATE.md'"
 		echo "2: url				 the github url"
 		echo "3: latestTag   latest tag"
+		printStackTrace
 		exit 9
 	fi
 	local -r file=$1
@@ -90,6 +92,7 @@ function replaceTagInPullRequestTemplate() {
 		echo "1: file   represents the 'PULL_REQUEST_TEMPLATE.md'"
 		echo "2: url	  the github url"
 		echo "3: tag    tag to set in url"
+		printStackTrace
 		exit 9
 	fi
 	local -r file=$1
