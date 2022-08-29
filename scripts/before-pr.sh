@@ -31,7 +31,7 @@ sourceOnce "$scriptsDir/run-shellcheck.sh"
 function beforePr() {
 	customRunShellcheck
 	cp -r "$projectDir"/src/.github/* "$projectDir/.github/"
-	perl -0777 -i -pe "s/<PROJECT_NAME>/github-commons/g" "$projectDir/.github/Contributor Agreement v1.1.txt"
+	perl -0777 -i -pe "s/<PROJECT_NAME>/github-commons/g" "$projectDir/.github/Contributor Agreement.txt"
 	perl -0777 -i -pe "s#<GITHUB_URL>#https://github.com/tegonal/github-commons#g" "$projectDir/.github/PULL_REQUEST_TEMPLATE.md"
 	perl -0777 -i -pe "s@name: \"Shellcheck\"@#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n# DO NOT MODIFY HERE BUT IN ./src/.github/workflows/shellckeck.yml\n#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nname: \"Shellcheck\"@" \
 		"$projectDir/.github/workflows/shellcheck.yml"
