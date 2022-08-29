@@ -10,37 +10,26 @@
 ###################################
 set -euo pipefail
 shopt -s inherit_errexit
+unset CDPATH
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
 	declare -r scriptsDir
 fi
 
-if ! [[ -v projectDir ]]; then
-	projectDir="$(realpath "$scriptsDir/../")"
-	declare -r projectDir
-fi
-
 if ! [[ -v dir_of_tegonal_scripts ]]; then
-	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
+	dir_of_tegonal_scripts="$scriptsDir/../lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
-sourceOnce "$dir_of_tegonal_scripts/releasing/release-files.sh"
+sourceOnce "$dir_of_tegonal_scripts/qa/run-shellcheck.sh"
 
-function release() {
-
-	function findFilesToRelease() {
-		find "$projectDir/.github" \
-			"$projectDir/.editorconfig" \
-			"$projectDir/.shellcheckrc" \
-			"$@"
-	}
-
-	# same as in prepare-next-dev-cycle.sh, update there as well
-	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
-
-	releaseFiles --project-dir "$projectDir" -p "$additionalPattern" --sign-fn findFilesToRelease "$@"
+function customRunShellcheck() {
+	# shellcheck disable=SC2034
+  declare -a dirs=("$scriptsDir")
+  declare sourcePath="$scriptsDir:$dir_of_tegonal_scripts"
+  runShellcheck dirs "$sourcePath"
 }
 
 ${__SOURCED__:+return}
-release "$@"
+customRunShellcheck "$@"
+
