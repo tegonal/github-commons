@@ -28,7 +28,7 @@ gget remote add -r tegonal-gh-commons -u https://github.com/tegonal/github-commo
 
 Now you can pull the files you want. For instance, to retrieve the dependabot.yml and put it into .github
 ```bash
-gget pull -r tegonal-gh-common -p .github/dependabot.yml --chop-path true -d .github
+gget pull -r tegonal-gh-commons -p .github/dependabot.yml --chop-path true -d .github
 ```
 
 # Contributors and contribute
