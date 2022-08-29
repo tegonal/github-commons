@@ -26,22 +26,13 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
-sourceOnce "$dir_of_tegonal_scripts/releasing/release-files.sh"
 
-function release() {
+if ! [[ -v version ]]; then
+	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
+fi
 
-	function findFilesToRelease() {
-		find "$projectDir/.github" \
-			"$projectDir/.editorconfig" \
-			"$projectDir/.shellcheckrc" \
-			"$@"
-	}
-
-	# same as in prepare-next-dev-cycle.sh, update there as well
-	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
-
-	releaseFiles --project-dir "$projectDir" -p "$additionalPattern" --sign-fn findFilesToRelease "$@"
-}
-
-${__SOURCED__:+return}
-release "$@"
+find "$projectDir/src" -type f \
+	-not -name "*.sh" -print0 |
+	while read -r -d $'\0' file; do
+		perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
+	done
