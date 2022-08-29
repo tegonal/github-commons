@@ -87,7 +87,7 @@ function replacePlaceholderPullRequestTemplate() {
 
 
 function replaceTagInPullRequestTemplate() {
-	if ! (($# == 2)); then
+	if ! (($# == 3)); then
 		logError "you need to pass three arguments to replaceTagInPullRequestTemplate"
 		echo "1: file   represents the 'PULL_REQUEST_TEMPLATE.md'"
 		echo "2: url	  the github url"
