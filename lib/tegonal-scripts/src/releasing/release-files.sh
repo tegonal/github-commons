@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v0.14.3
+#                                         Version: v0.14.4
 #
 #######  Description  #############
 #
@@ -60,7 +60,7 @@
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
-export TEGONAL_SCRIPTS_VERSION='v0.14.3'
+export TEGONAL_SCRIPTS_VERSION='v0.14.4'
 
 if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/.."
@@ -206,7 +206,7 @@ function releaseFiles() {
 	trustGpgKey "$gpgDir" "info@tegonal.com" || logInfo "could not trust key with id info@tegonal.com, you will see warnings due to this during signing the files"
 
 	local script
-	"$findForSigning" -type f -print0 |
+	"$findForSigning" -type f -not -name "*.sig" -print0 |
 		while read -r -d $'\0' script; do
 			echo "signing $script"
 			gpg --detach-sign --batch --yes -u "$key" -o "${script}.sig" "$script" || die "was not able to sign %s" "$script"
