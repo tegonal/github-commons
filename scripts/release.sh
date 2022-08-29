@@ -22,6 +22,11 @@ if ! [[ -v projectDir ]]; then
 	declare -r projectDir
 fi
 
+if ! [[ -v dir_of_github_commons ]]; then
+	dir_of_github_commons="$projectDir/src"
+	declare -r dir_of_github_commons
+fi
+
 if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
