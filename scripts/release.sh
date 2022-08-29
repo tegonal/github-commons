@@ -39,7 +39,6 @@ function release() {
 		find "$projectDir/src" \
 			"$projectDir/.editorconfig" \
 			"$projectDir/.shellcheckrc" \
-			-not -name "*.sig" \
 			"$@"
 	}
 
