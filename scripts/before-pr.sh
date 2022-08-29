@@ -24,7 +24,7 @@ if ! [[ -v projectDir ]]; then
 fi
 
 if ! [[ -v dir_of_github_commons ]]; then
-	dir_of_github_commons="$(realpath "$projectDir/src")"
+	dir_of_github_commons="$projectDir/src"
 	declare -r dir_of_github_commons
 fi
 

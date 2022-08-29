@@ -20,4 +20,4 @@ jobs:
         with:
           ignore: lib/tegonal-scripts
         env:
-          SHELLCHECK_OPTS: -C -x -o all -P .src/:./scripts:./lib/tegonal-scripts/src
+          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src

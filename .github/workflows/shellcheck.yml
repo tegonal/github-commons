@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@1.1.0
-        env:
-          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src
         with:
           ignore: lib/tegonal-scripts
+        env:
+          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src
