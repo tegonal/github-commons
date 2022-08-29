@@ -36,3 +36,7 @@ find "$projectDir/src" -type f \
 	while read -r -d $'\0' file; do
 		perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
 	done
+
+perl -0777 -i \
+	-pe "s#(https://github.com/tegonal/github-commons/blob/)[^/]+/#\${1}$version/#;" \
+	"$projectDir/src/.github/PULL_REQUEST_TEMPLATE.md"
