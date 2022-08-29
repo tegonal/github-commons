@@ -36,7 +36,7 @@ sourceOnce "$dir_of_tegonal_scripts/releasing/release-files.sh"
 function release() {
 
 	function findFilesToRelease() {
-		find "$projectDir/.github" \
+		find "$projectDir/src" \
 			"$projectDir/.editorconfig" \
 			"$projectDir/.shellcheckrc" \
 			"$@"
