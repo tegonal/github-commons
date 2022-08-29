@@ -22,10 +22,16 @@ if ! [[ -v projectDir ]]; then
 	declare -r projectDir
 fi
 
+if ! [[ -v dir_of_github_commons ]]; then
+	dir_of_github_commons="$(realpath "$projectDir/src")"
+	declare -r dir_of_github_commons
+fi
+
 if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
+sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
 
 if ! [[ -v version ]]; then
 	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
@@ -37,6 +43,7 @@ find "$projectDir/src" -type f \
 		perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
 	done
 
-perl -0777 -i \
-	-pe "s#(https://github.com/tegonal/github-commons/blob/)[^/]+/#\${1}$version/#;" \
-	"$projectDir/src/.github/PULL_REQUEST_TEMPLATE.md"
+# same as in before-pr.sh
+declare githubUrl="https://github.com/tegonal/github-commons"
+
+replaceTagInPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "$githubUrl" "$version"

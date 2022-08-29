@@ -38,7 +38,7 @@ function release() {
 	}
 
 	# same as in prepare-next-dev-cycle.sh, update there as well
-	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
+	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_(?:LATEST_VERSION_)?VERSION=['\"])[^'\"]+(['\"])"
 
 	releaseFiles --project-dir "$projectDir" -p "$additionalPattern" --sign-fn findFilesToRelease "$@"
 }
