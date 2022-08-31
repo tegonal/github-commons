@@ -32,7 +32,7 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
 sourceOnce "$scriptsDir/run-shellcheck.sh"
-sourceOnce "$scriptsDir/cleanup-after-merge.sh"
+sourceOnce "$scriptsDir/cleanup-on-push-to-main.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
 function beforePr() {

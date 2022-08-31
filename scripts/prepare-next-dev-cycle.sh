@@ -31,7 +31,7 @@ sourceOnce "$dir_of_tegonal_scripts/releasing/prepare-files-next-dev-cycle.sh"
 function prepareNextDevCycle() {
 	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
 
-	prepareFilesNextDevCycle --project-dir "$projectDir" -p "$additionalPattern" "$@"
+	prepareFilesNextDevCycle "$@" --project-dir "$projectDir" -p "$additionalPattern"
 }
 
 ${__SOURCED__:+return}
