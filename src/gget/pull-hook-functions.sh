@@ -44,7 +44,7 @@ export GGET_VERSION='v0.5.0-SNAPSHOT'
 
 if ! [[ -v dir_of_github_commons ]]; then
 	dir_of_github_commons="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/.."
-	declare -r dir_of_github_commons
+	readonly dir_of_github_commons
 fi
 
 if ! [[ -v dir_of_tegonal_scripts ]]; then
