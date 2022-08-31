@@ -14,17 +14,17 @@ unset CDPATH
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
-	declare -r scriptsDir
+	readonly scriptsDir
 fi
 
 if ! [[ -v projectDir ]]; then
 	projectDir="$(realpath "$scriptsDir/../")"
-	declare -r projectDir
+	readonly projectDir
 fi
 
 if ! [[ -v dir_of_github_commons ]]; then
 	dir_of_github_commons="$projectDir/src"
-	declare -r dir_of_github_commons
+	readonly dir_of_github_commons
 fi
 
 if ! [[ -v dir_of_tegonal_scripts ]]; then
@@ -39,7 +39,7 @@ function beforePr() {
 	# using && because this function is used on the left side of an || in releaseFiles
   # this way we still have fail fast behaviour and don't mask/hide a non-zero exit code
 	customRunShellcheck && \
-	cleanupAfterMerge
+	cleanupOnPushToMain
 }
 
 ${__SOURCED__:+return}

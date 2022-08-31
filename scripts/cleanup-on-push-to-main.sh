@@ -15,17 +15,17 @@ TEGONAL_GITHUB_COMMONS_LATEST_VERSION="v0.3.1"
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
-	declare -r scriptsDir
+	readonly scriptsDir
 fi
 
 if ! [[ -v projectDir ]]; then
 	projectDir="$(realpath "$scriptsDir/../")"
-	declare -r projectDir
+	readonly projectDir
 fi
 
 if ! [[ -v dir_of_github_commons ]]; then
 	dir_of_github_commons="$projectDir/src"
-	declare -r dir_of_github_commons
+	readonly dir_of_github_commons
 fi
 
 if ! [[ -v dir_of_tegonal_scripts ]]; then
@@ -35,7 +35,7 @@ fi
 sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
-function cleanupAfterMerge() {
+function cleanupOnPushToMain() {
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
@@ -66,4 +66,4 @@ function cleanupAfterMerge() {
 }
 
 ${__SOURCED__:+return}
-cleanupAfterMerge "$@"
+cleanupOnPushToMain "$@"
