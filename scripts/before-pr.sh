@@ -11,7 +11,6 @@
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
-TEGONAL_GITHUB_COMMONS_LATEST_VERSION="v0.1.2"
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
@@ -33,30 +32,14 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
 sourceOnce "$scriptsDir/run-shellcheck.sh"
-sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
+sourceOnce "$scriptsDir/cleanup-after-merge.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
 function beforePr() {
-	customRunShellcheck
-	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/"
-
-	# same as in additional-release-files-preparations.sh
-  declare githubUrl="https://github.com/tegonal/github-commons"
-
-	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons"
-	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "$githubUrl" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION"
-	perl -0777 -i -pe "s@name: \"Shellcheck\"@#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n# DO NOT MODIFY HERE BUT IN ./src/.github/workflows/shellckeck.yml\n#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nname: \"Shellcheck\"@" \
-		"$projectDir/.github/workflows/shellcheck.yml"
-
-	find "$dir_of_github_commons" -type f \
-			-name "*.sh" \
-  		-not -name "*.doc.sh" \
-  		-print0 |
-		while read -r -d $'\0' script; do
-			relative="$(realpath --relative-to="$projectDir" "$script")"
-			declare id="${relative:4:-3}"
-			updateBashDocumentation "$script" "${id////-}" . README.md
-		done
+	# using && because this function is used on the left side of an || in releaseFiles
+  # this way we still have fail fast behaviour and don't mask/hide a non-zero exit code
+	customRunShellcheck && \
+	cleanupAfterMerge
 }
 
 ${__SOURCED__:+return}

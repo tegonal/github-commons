@@ -43,8 +43,7 @@ function release() {
 			"$@"
 	}
 
-	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_(?:LATEST_VERSION_)?VERSION=['\"])[^'\"]+(['\"])"
-
+	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_(?:LATEST_)?VERSION=['\"])[^'\"]+(['\"])"
 	releaseFiles --project-dir "$projectDir" -p "$additionalPattern" --sign-fn findFilesToRelease "$@"
 }
 

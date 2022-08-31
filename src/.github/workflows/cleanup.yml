@@ -5,21 +5,26 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
 #                                         Version: v0.3.0-SNAPSHOT
-##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# DO NOT MODIFY HERE BUT IN src/.github/workflows/shellcheck.yml
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-name: Shellcheck
-on: [push, pull_request]
+#
+name: Cleanup
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  Shellcheck:
-    name: Shellcheck
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@1.1.0
+      - name: Cleanup Sources
+        run: ./scripts/cleanup-after-merge.sh
+      - name: Create Pull Request if necessary
+        uses: peter-evans/create-pull-request@v4
         with:
-          ignore: lib/tegonal-scripts
-        env:
-          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src
+          branch: auto-cleanup
+          title: Cleanup
+          commit-message: cleanup sources
+          body: Looks like someone forgot to run some commands before committing. I did it for them :)
+          delete-branch: true
