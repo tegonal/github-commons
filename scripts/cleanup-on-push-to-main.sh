@@ -55,6 +55,7 @@ function cleanupOnPushToMain() {
 	find "$dir_of_github_commons" -type f \
 		-name "*.sh" \
 		-not -name "*.doc.sh" \
+		-not -name "docker-entrypoint.sh" \
 		-print0 |
 		while read -r -d $'\0' script; do
 			relative="$(realpath --relative-to="$projectDir" "$script")"
