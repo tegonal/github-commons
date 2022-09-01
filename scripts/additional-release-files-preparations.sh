@@ -37,17 +37,22 @@ if ! [[ -v version ]] || [[ -z $version ]]; then
 	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
 fi
 
-logInfo "going to update version in non-sh files to %s" "$version"
+function additionalReleasePrepareSteps() {
+	logInfo "going to update version in non-sh files to %s" "$version"
 
-find "$projectDir/src" -type f \
-	-not -name "*.sh" -print0 |
-	while read -r -d $'\0' file; do
-		perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
-	done
+	find "$projectDir/src" -type f \
+		-not -name "*.sh" -print0 |
+		while read -r -d $'\0' file; do
+			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
+		done
 
-# same as in before-pr.sh
-declare githubUrl="https://github.com/tegonal/github-commons"
+	# same as in before-pr.sh
+	local -r githubUrl="https://github.com/tegonal/github-commons"
 
-logInfo "going to update version in url of the pull request template"
+	local -r pullRequestTemplate="$projectDir/.github/PULL_REQUEST_TEMPLATE.md"
+	logInfo "going to update version in url of the pull request template %s" "$pullRequestTemplate"
 
-replaceTagInPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "$githubUrl" "$version"
+	replaceTagInPullRequestTemplate "$pullRequestTemplate" "$githubUrl" "$version"
+}
+
+additionalReleasePrepareSteps

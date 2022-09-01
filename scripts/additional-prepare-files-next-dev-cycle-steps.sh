@@ -31,8 +31,11 @@ if ! [[ -v version ]]; then
 	die "looks like \$version was not defined by prepare-files-next-dev-cycle.sh where this file is supposed to be sourced."
 fi
 
-find "$projectDir/src" -type f \
-	-not -name "*.sh" -print0 |
-	while read -r -d $'\0' file; do
-		perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}${version}-SNAPSHOT/g;" "$file"
-	done
+function additionalPrepareNextSteps() {
+	find "$projectDir/src" -type f \
+		-not -name "*.sh" -print0 |
+		while read -r -d $'\0' file; do
+			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}${version}-SNAPSHOT/g;" "$file"
+		done
+}
+additionalPrepareNextSteps
