@@ -37,6 +37,8 @@ if ! [[ -v version ]] || [[ -z $version ]]; then
 	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
 fi
 
+logInfo "going to update version in non-sh files to %s" "$version"
+
 find "$projectDir/src" -type f \
 	-not -name "*.sh" -print0 |
 	while read -r -d $'\0' file; do
@@ -45,5 +47,7 @@ find "$projectDir/src" -type f \
 
 # same as in before-pr.sh
 declare githubUrl="https://github.com/tegonal/github-commons"
+
+logInfo "going to update version in url of the pull request template"
 
 replaceTagInPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "$githubUrl" "$version"
