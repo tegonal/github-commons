@@ -7,18 +7,7 @@
 #                                         Version: v0.5.0-SNAPSHOT
 #
 ###################################
-name: Shellcheck
-on: [push, pull_request]
 
-jobs:
-  Shellcheck:
-    name: Shellcheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@1.1.0
-        with:
-          ignore: lib/tegonal-scripts
-        env:
-          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src
+# Prefer putting braces around variable references even when not strictly required.
+# ==> IMO without braces reads nicer if not necessary
+disable=SC2250

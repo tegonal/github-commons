@@ -37,8 +37,6 @@ function release() {
 
 	function findFilesToRelease() {
 		find "$projectDir/src" \
-			"$projectDir/.editorconfig" \
-			"$projectDir/.shellcheckrc" \
 			-not -name "*.doc.sh" \
 			"$@"
 	}

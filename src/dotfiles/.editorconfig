@@ -7,18 +7,22 @@
 #                                         Version: v0.5.0-SNAPSHOT
 #
 ###################################
-name: Shellcheck
-on: [push, pull_request]
 
-jobs:
-  Shellcheck:
-    name: Shellcheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@1.1.0
-        with:
-          ignore: lib/tegonal-scripts
-        env:
-          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src
+# https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = tab
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+[*.{yml,sh}]
+indent_size = 2

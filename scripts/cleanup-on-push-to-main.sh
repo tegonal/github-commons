@@ -35,19 +35,30 @@ fi
 sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
+function cleanup_putWarning() {
+	local -r findCommand=$1
+	local -r dir=$2
+	eval "$findCommand -type f -print0" |
+		while read -r -d $'\0' file; do
+			local relative
+			relative=$(realpath --relative-to="$projectDir" "$file")
+			perl -0777 -i -pe "s@(####+)@\${1}\n#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n# DO NOT MODIFY HERE BUT IN $dir/$relative\n#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@" \
+				"$file" || returnDying "could not put a warning notice into file %s" "$file" || return $?
+		done || die "could not put the warning DO NOT MODIFY HERE into files, see above"
+}
+
 function cleanupOnPushToMain() {
-	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files"
+	find "$dir_of_github_commons/dotfiles" -type f -name ".*" -print0 | while read -r -d $'\0' file; do
+		cp "$file" "$projectDir/" || return $?
+	done || die "could not copy dotfiles to projectDir"
+
+	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
 	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" || die "could not fill the placeholders of contributors agreement template"
 	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders of the pull request template"
-	find "$projectDir/.github/workflows" -type f -name "*.yml" -print0 |
-		while read -r -d $'\0' workflow; do
-			local relative
-			relative=$(realpath --relative-to="$projectDir" "$workflow")
-			perl -0777 -i -pe "s@(\nname:.+)@#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n# DO NOT MODIFY HERE BUT IN src/$relative\n#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\${1}@" \
-				"$workflow" || returnDying "could not put a warning notice into workflow %s" "$workflow" || return $?
-		done || die "could not put a warning notice into workflow yml files, see above"
+	cleanup_putWarning "find \"$projectDir/.github\"" "src"
+	cleanup_putWarning "find \"$projectDir\" -maxdepth 1 -name '.*'" "src/dotfiles"
 
 	find "$dir_of_github_commons" -type f \
 		-name "*.sh" \

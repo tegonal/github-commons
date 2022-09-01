@@ -7,6 +7,10 @@
 #         /___/
 #                                         Version: v0.5.0-SNAPSHOT
 #
+###################################
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# DO NOT MODIFY HERE BUT IN src/.github/CODE_OF_CONDUCT.md
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 -->
 # Contributor Covenant Code of Conduct
 
