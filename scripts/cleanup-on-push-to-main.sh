@@ -39,11 +39,8 @@ function cleanupOnPushToMain() {
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
-	# same as in additional-release-files-preparations.sh
-	declare githubUrl="https://github.com/tegonal/github-commons"
-
 	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" || die "could not fill the placeholders of contributors agreement template"
-	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "$githubUrl" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders of the pull request template"
+	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders of the pull request template"
 	find "$projectDir/.github/workflows" -type f -name "*.yml" -print0 |
 		while read -r -d $'\0' workflow; do
 			local relative
