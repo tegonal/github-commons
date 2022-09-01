@@ -100,10 +100,6 @@ function replaceTagInPullRequestTemplate() {
 	local -r tag=$3
 	shift 3 || die "could not shift by 3"
 
-	echo "perl -0777 -i \
-        		-pe \"s#($url/blob/)[^/]+/#\${1}$tag/#;\" \
-        		\"$file\""
-
 	perl -0777 -i \
 		-pe "s#($url/blob/)[^/]+/#\${1}$tag/#;" \
 		"$file"
