@@ -7,6 +7,7 @@
 #         /___/
 #                                         Version: v0.5.0-SNAPSHOT
 #
+###################################
 -->
 # Contributor Covenant Code of Conduct
 
