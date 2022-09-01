@@ -37,31 +37,6 @@ if ! [[ -v version ]] || [[ -z $version ]]; then
 	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
 fi
 
-function sourceOnce_exitIfNotAtLeastOneArg() {
-	if (($# < 1)); then
-		printf >&2 "you need to pass at least the file you want to source to sourceOnce in \033[0;36m%s\033[0m\nFollowing a description of the parameters:" "${BASH_SOURCE[1]}"
-		echo >&2 '1. file       the file to source'
-		echo >&2 '2... args...  additional parameters which are passed to the source command'
-		printStackTraced
-		exit 9
-	fi
-}
-
-
-function sourceAlways() {
-	sourceOnce_exitIfNotAtLeastOneArg "$@"
-
-	local -r sourceAlways_file="$1"
-	shift 1 || die "could not shift by 1"
-
-	local sourceAlways_guard
-	sourceAlways_guard=$(determineSourceOnceGuard "$sourceAlways_file")
-	unset "$sourceAlways_guard"
-	sourceOnce "$sourceAlways_file" "$@"
-}
-
-
-
 function additionalReleasePrepareSteps() {
 	logInfo "going to update version in non-sh files to %s" "$version"
 
