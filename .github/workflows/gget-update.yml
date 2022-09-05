@@ -21,6 +21,7 @@ on:
 jobs:
   Update:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'tegonal'
     steps:
       - uses: actions/checkout@v3
       - name:  gget
@@ -50,6 +51,8 @@ jobs:
           commit-message: update files pulled via gget
           body: "following the changes after running: gget update"
           delete-branch: true
+          token: ${{ secrets.GGET_UPDATE_TOKEN }}
+          push-to-fork:  ${{ secrets.GGET_UPDATE_FORK }}
 
 
 
