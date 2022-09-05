@@ -24,7 +24,7 @@ jobs:
     if: github.repository_owner == 'tegonal'
     steps:
       - uses: actions/checkout@v3
-      - name:  gget
+      - name: Install gget
         run: |
           set -e
           tmpDir=$(mktemp -d -t gget-download-install-XXXXXXXXXX)
@@ -47,12 +47,10 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           branch: gget-update
+          base: main
           title: Updates via gget
           commit-message: update files pulled via gget
           body: "following the changes after running: gget update"
           delete-branch: true
           token: ${{ secrets.GGET_UPDATE_TOKEN }}
           push-to-fork:  ${{ secrets.GGET_UPDATE_FORK }}
-
-
-
