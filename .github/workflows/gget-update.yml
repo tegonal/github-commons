@@ -1,0 +1,55 @@
+#
+#    __                          __
+#   / /____ ___ ____  ___  ___ _/ /       This script is provided to you by https://github.com/tegonal/github-commons
+#  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Creative Commons Zero v1.0 Universal
+#  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
+#         /___/
+#                                         Version: v0.5.0-SNAPSHOT
+#
+###################################
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# DO NOT MODIFY HERE BUT IN src/.github/workflows/gget-update.yml
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+name: "gget update"
+on:
+  schedule:
+    - cron: '0 4 * * MON'
+  push:
+    branches:
+      - do-gget-update
+
+jobs:
+  Update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name:  gget
+        run: |
+          set -e
+          tmpDir=$(mktemp -d -t gget-download-install-XXXXXXXXXX)
+          mkdir -p "$tmpDir"
+          currentDir=$(pwd)
+          cd "$tmpDir"
+          ! [ -f ./install.sh ] || (echo "there is already an install.sh in your directory, aborting"; exit 1)
+          wget "https://raw.githubusercontent.com/tegonal/gget/main/install.sh"
+          wget "https://raw.githubusercontent.com/tegonal/gget/main/install.sh.sig"
+          wget -O- https://raw.githubusercontent.com/tegonal/gget/main/.gget/signing-key.public.asc | gpg --import -
+          gpg --verify ./install.sh.sig ./install.sh
+          chmod +x ./install.sh
+          echo "verification successful"
+          ./install.sh
+          cd "$currentDir"
+          rm -r "$tmpDir"
+      - name: gget update
+        run: gget update
+      - name: Create Pull Request if necessary
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: gget-update
+          title: Updates via gget
+          commit-message: update files pulled via gget
+          body: "following the changes after running: gget update"
+          delete-branch: true
+
+
+
