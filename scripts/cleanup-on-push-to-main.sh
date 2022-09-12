@@ -48,7 +48,7 @@ function cleanup_putWarning() {
 }
 
 function cleanupOnPushToMain() {
-	find "$dir_of_github_commons/dotfiles" -type f -name ".*" -print0 | while read -r -d $'\0' file; do
+	find "$dir_of_github_commons/dotfiles" -type f -name ".*" -not -name '.*.sig' -print0 | while read -r -d $'\0' file; do
 		cp "$file" "$projectDir/" || return $?
 	done || die "could not copy dotfiles to projectDir"
 
