@@ -60,7 +60,7 @@ function cleanupOnPushToMain() {
 
 	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" || die "could not fill the placeholders of contributors agreement template"
 	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders of the pull request template"
-	cleanup_putWarning "find \"$projectDir/.github\"" "src"
+	cleanup_putWarning "find \"$projectDir/.github\" -not -name quality-assurance.yml" "src"
 	cleanup_putWarning "find \"$projectDir\" -maxdepth 1 -name '.*'" "src/dotfiles"
 
 	find "$dir_of_github_commons" -type f \
