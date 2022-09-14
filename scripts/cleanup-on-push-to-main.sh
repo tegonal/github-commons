@@ -52,6 +52,9 @@ function cleanupOnPushToMain() {
 		cp "$file" "$projectDir/" || return $?
 	done || die "could not copy dotfiles to projectDir"
 
+	cp "$dir_of_github_commons/gget/signing-key.public.asc" "$projectDir/.gget/signing-key.public.asc"
+	cp "$dir_of_github_commons/gget/signing-key.public.asc.actual_sig" "$projectDir/.gget/signing-key.public.asc.sig"
+
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
