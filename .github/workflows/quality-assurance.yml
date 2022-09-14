@@ -7,21 +7,15 @@
 #                                         Version: v0.6.0-SNAPSHOT
 #
 ###################################
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# DO NOT MODIFY HERE BUT IN src/.github/workflows/shellcheck.yml
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-name: Shellcheck
-on: [push, pull_request]
+name: Quality Assurance
+on: [ push, pull_request ]
 
 jobs:
-  Shellcheck:
-    name: Shellcheck
+  QA:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@1.1.0
-        with:
-          ignore: lib/tegonal-scripts
-        env:
-          SHELLCHECK_OPTS: -C -x -o all -P ./src:./scripts:./lib/tegonal-scripts/src
+      - name: install shellcheck v0.8.0
+        run: ./lib/tegonal-scripts/src/ci/install-shellcheck.sh
+      - name: run before-pr
+        run: ./scripts/before-pr.sh
