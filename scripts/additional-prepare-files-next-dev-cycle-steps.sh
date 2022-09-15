@@ -26,16 +26,18 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
-
-if ! [[ -v version ]]; then
-	die "looks like \$version was not defined by prepare-files-next-dev-cycle.sh where this file is supposed to be sourced."
-fi
+sourceOnce "$dir_of_tegonal_scripts/utility/checks.sh"
 
 function additionalPrepareNextSteps() {
+	# keep in sync with local -r
+	exitIfVarsNotAlreadySetBySource devVersion
+	# we help shellcheck to realise that version and additionalPattern are initialised
+	local -r devVersion="$devVersion"
+
 	find "$projectDir/src" -type f \
 		-not -name "*.sh" -print0 |
 		while read -r -d $'\0' file; do
-			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}${version}-SNAPSHOT/g;" "$file"
+			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}${devVersion}/g;" "$file"
 		done
 }
 additionalPrepareNextSteps
