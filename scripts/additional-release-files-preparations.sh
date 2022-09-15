@@ -33,11 +33,12 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 fi
 sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
 
-if ! [[ -v version ]] || [[ -z $version ]]; then
-	die "looks like \$version was not defined by release-files.sh where this file is supposed to be sourced."
-fi
-
 function additionalReleasePrepareSteps() {
+	# keep in sync with local -r
+	exitIfVarsNotAlreadySetBySource version
+	# we help shellcheck to realise that these variables are initialised
+	local -r version="$version"
+
 	logInfo "going to update version in non-sh files to %s" "$version"
 
 	find "$projectDir/src" -type f \

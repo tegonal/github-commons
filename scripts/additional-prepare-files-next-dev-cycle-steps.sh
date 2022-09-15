@@ -31,7 +31,7 @@ sourceOnce "$dir_of_tegonal_scripts/utility/checks.sh"
 function additionalPrepareNextSteps() {
 	# keep in sync with local -r
 	exitIfVarsNotAlreadySetBySource devVersion
-	# we help shellcheck to realise that version and additionalPattern are initialised
+	# we help shellcheck to realise that these variables are initialised
 	local -r devVersion="$devVersion"
 
 	find "$projectDir/src" -type f \
