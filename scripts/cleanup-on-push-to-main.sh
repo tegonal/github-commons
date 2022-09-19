@@ -5,13 +5,13 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Creative Commons Zero v1.0 Universal
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v0.7.0-SNAPSHOT
+#                                         Version: v0.7.0
 #
 ###################################
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
-TEGONAL_GITHUB_COMMONS_LATEST_VERSION="v0.6.0"
+TEGONAL_GITHUB_COMMONS_LATEST_VERSION="v0.7.0"
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
