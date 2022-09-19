@@ -7,6 +7,9 @@
 #                                         Version: v0.5.0-SNAPSHOT
 #
 ###################################
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# DO NOT MODIFY HERE BUT IN src/.github/workflows/gget-update.yml
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 name: "gget update"
 on:
   schedule:
