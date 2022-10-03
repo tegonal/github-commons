@@ -1,2 +1,2 @@
 tag	file	relativeTarget	sha512
-v0.7.4	.github/workflows/gget-update.yml	../.github/workflows/gget-update.yml	3d2274bf6e2b1859f0a0ccabeebcae83e44daba0ea8e842e6b4eeeacb2533addc318923f579efd6d40838816763b2384bb4b6cfe110c9320ecefb5e207b2361a
+v0.8.0	.github/workflows/gget-update.yml	../.github/workflows/gget-update.yml	37ad59158d2cb32a76c2084974251f4c6dc6d01d42149fcfa0f8245f686d2bad81c1ef32d1237bdccaec3b67ff6548d2e7d2769461a2b37f276474242f2f7c3c
