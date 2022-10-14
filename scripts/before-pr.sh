@@ -33,7 +33,6 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 fi
 sourceOnce "$scriptsDir/run-shellcheck.sh"
 sourceOnce "$scriptsDir/cleanup-on-push-to-main.sh"
-sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
 function beforePr() {
 	# using && because this function is used on the left side of an || in releaseFiles
