@@ -32,7 +32,7 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$scriptsDir/../lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
-sourceOnce "$dir_of_github_commons/gget/pull-hook-functions.sh"
+sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
 function cleanup_putWarning() {
@@ -52,15 +52,15 @@ function cleanupOnPushToMain() {
 		cp "$file" "$projectDir/" || return $?
 	done || die "could not copy dotfiles to projectDir"
 
-	cp "$dir_of_github_commons/gget/signing-key.public.asc" "$projectDir/.gget/signing-key.public.asc"
-	cp "$dir_of_github_commons/gget/signing-key.public.asc.actual_sig" "$projectDir/.gget/signing-key.public.asc.sig"
+	cp "$dir_of_github_commons/gt/signing-key.public.asc" "$projectDir/.gt/signing-key.public.asc"
+	cp "$dir_of_github_commons/gt/signing-key.public.asc.actual_sig" "$projectDir/.gt/signing-key.public.asc.sig"
 
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
 	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" || die "could not fill the placeholders of contributors agreement template"
 	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders of the pull request template"
-	cleanup_putWarning "find \"$projectDir/.github\" -not -name quality-assurance.yml -not -name gget-update.yml" "src"
+	cleanup_putWarning "find \"$projectDir/.github\" -not -name quality-assurance.yml -not -name gt-update.yml" "src"
 	cleanup_putWarning "find \"$projectDir\" -maxdepth 1 -name '.*'" "src/dotfiles"
 
 	find "$dir_of_github_commons" -type f \
