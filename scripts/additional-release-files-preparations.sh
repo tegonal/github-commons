@@ -34,7 +34,7 @@ fi
 sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
 
 function additionalReleasePrepareSteps() {
-	# keep in sync with local -r
+	# keep in sync with local -r further below (3 lines at the time of writing)
 	exitIfVarsNotAlreadySetBySource version
 	# we help shellcheck to realise that these variables are initialised
 	local -r version="$version"
@@ -47,7 +47,7 @@ function additionalReleasePrepareSteps() {
 			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
 		done
 
-	# cleanup-on-push-to-main relies the latest version, i.e. we need to re-source the file in order that this change
+	# cleanup-on-push-to-main relies on the latest version, i.e. we need to re-source the file in order that this change
 	# is taken into account as well
 	sourceAlways "$scriptsDir/cleanup-on-push-to-main.sh"
 }
