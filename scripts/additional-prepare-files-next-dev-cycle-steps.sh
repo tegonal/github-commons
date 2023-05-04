@@ -29,7 +29,7 @@ fi
 sourceOnce "$dir_of_tegonal_scripts/utility/checks.sh"
 
 function additionalPrepareNextSteps() {
-	# keep in sync with local -r
+	# keep in sync with local -r further below (3 lines at the time of writing)
 	exitIfVarsNotAlreadySetBySource devVersion
 	# we help shellcheck to realise that these variables are initialised
 	local -r devVersion="$devVersion"
