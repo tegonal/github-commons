@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v0.19.0
+#                                         Version: v1.0.0
 #
 #######  Description  #############
 #
@@ -22,7 +22,7 @@
 #    MY_LIBRARY_VERSION="v1.0.3"
 #
 #    if ! [[ -v dir_of_tegonal_scripts ]]; then
-#    	# Assumes tegonal's scripts were fetched with gget - adjust location accordingly
+#    	# Assumes tegonal's scripts were fetched with gt - adjust location accordingly
 #    	dir_of_tegonal_scripts="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/../lib/tegonal-scripts/src"
 #    	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 #    fi
