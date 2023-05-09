@@ -40,7 +40,6 @@
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
-export GT_VERSION='v0.5.0-SNAPSHOT'
 
 if ! [[ -v dir_of_github_commons ]]; then
 	dir_of_github_commons="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/.."
