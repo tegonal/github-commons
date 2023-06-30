@@ -65,9 +65,9 @@ function replacePlaceholdersContributorsAgreement() {
 	perl -0777 -i -pe "s/<PROJECT_NAME>/$projectName/g" "$file"
 }
 
-function replacePlaceholderPullRequestTemplate() {
+function replacePlaceholdersPullRequestTemplate() {
 	if ! (($# == 3)); then
-		logError "you need to pass three arguments to replacePlaceholderPullRequestTemplate"
+		logError "you need to pass three arguments to replacePlaceholdersPullRequestTemplate"
 		echo "1: file        represents the 'PULL_REQUEST_TEMPLATE.md'"
 		echo "2: url				 the github url"
 		echo "3: latestTag   latest tag"
@@ -83,7 +83,6 @@ function replacePlaceholderPullRequestTemplate() {
 		-pe "s#<TAG>#$tag#g;" \
 		"$file"
 }
-
 
 function replaceTagInPullRequestTemplate() {
 	if ! (($# == 3)); then
