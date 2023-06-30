@@ -59,7 +59,7 @@ function cleanupOnPushToMain() {
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
 	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" || die "could not fill the placeholders of contributors agreement template"
-	replacePlaceholderPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders in PULL_REQUEST_TEMPLATE.md"
+	replacePlaceholdersPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders in PULL_REQUEST_TEMPLATE.md"
 	cleanup_putWarning "find \"$projectDir/.github\" -not -name quality-assurance.yml -not -name gt-update.yml" "src"
 	cleanup_putWarning "find \"$projectDir\" -maxdepth 1 -name '.*'" "src/dotfiles"
 
