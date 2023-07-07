@@ -17,6 +17,6 @@ declare _tag=$1 source=$2 _target=$3
 shift 3 || die "could not shift by 3"
 
 replacePlaceholdersContributorsAgreement "$source" "my-project-name"
-replacePlaceholderPullRequestTemplate "$source" "https://github.com/tegonal/my-project-name" "$MY_PROJECT_LATEST_VERSION"
+replacePlaceholdersPullRequestTemplate "$source" "https://github.com/tegonal/my-project-name" "$MY_PROJECT_LATEST_VERSION"
 
 # also have a look at https://github.com/tegonal/gt/blob/main/.gt/remotes/tegonal-scripts/pull-hook.sh
