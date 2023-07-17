@@ -32,6 +32,7 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
 sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
+sourceOnce "$dir_of_tegonal_scripts/releasing/update-version-issue-templates.sh"
 
 function additionalReleasePrepareSteps() {
 	# keep in sync with local -r further below (3 lines at the time of writing)
@@ -46,6 +47,8 @@ function additionalReleasePrepareSteps() {
 		while read -r -d $'\0' file; do
 			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
 		done
+
+	updateVersionIssueTemplates -v "$version"
 
 	# cleanup-on-push-to-main relies on the latest version, i.e. we need to re-source the file in order that this change
 	# is taken into account as well
