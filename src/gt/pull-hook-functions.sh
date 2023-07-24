@@ -31,7 +31,7 @@
 #    declare _tag=$1 source=$2 _target=$3
 #    shift 3 || die "could not shift by 3"
 #
-#    replacePlaceholdersContributorsAgreement "$source" "my-project-name"
+#    replacePlaceholdersContributorsAgreement "$source" "my-project-name" "MyCompanyName, Country"
 #    replacePlaceholdersPullRequestTemplate "$source" "https://github.com/tegonal/my-project-name" "$MY_PROJECT_LATEST_VERSION"
 #
 #    # also have a look at https://github.com/tegonal/gt/blob/main/.gt/remotes/tegonal-scripts/pull-hook.sh
@@ -52,8 +52,27 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 fi
 
 function replacePlaceholdersContributorsAgreement() {
+	if ! (($# == 3)); then
+		logError "you need to pass three arguments to replacePlaceholdersContributorsAgreement"
+		echo "1: file         represents the 'Contributor Agreement.txt'"
+		echo "2: projectName  the name of the project"
+		echo "3: owner				owner of the project"
+		printStackTrace
+		exit 9
+	fi
+	local -r file=$1
+	local -r projectName=$2
+	local -r owner=$3
+	shift 3 || die "could not shift by 3"
+	perl -0777 -i \
+		-pe "s/<PROJECT_NAME>/$projectName/g;" \
+		-pe "s/<OWNER>/$owner/g;" \
+		"$file"
+}
+
+function replacePlaceholdersContributorsAgreement_Tegonal() {
 	if ! (($# == 2)); then
-		logError "you need to pass two arguments to replacePlaceholdersContributorsAgreement"
+		logError "you need to pass two arguments to replacePlaceholdersContributorsAgreement_Tegonal"
 		echo "1: file         represents the 'Contributor Agreement.txt'"
 		echo "2: projectName  the name of the project"
 		printStackTrace
@@ -62,7 +81,7 @@ function replacePlaceholdersContributorsAgreement() {
 	local -r file=$1
 	local -r projectName=$2
 	shift 2 || die "could not shift by 2"
-	perl -0777 -i -pe "s/<PROJECT_NAME>/$projectName/g" "$file"
+	replacePlaceholdersContributorsAgreement "$file" "$projectName" "Tegonal Genossenschaft, Switzerland"
 }
 
 function replacePlaceholdersPullRequestTemplate() {
