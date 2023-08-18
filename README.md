@@ -75,6 +75,7 @@ source "$dir_of_github_commons/gt/pull-hook-functions.sh"
 declare _tag=$1 source=$2 _target=$3
 shift 3 || die "could not shift by 3"
 
+replacePlaceholdersCodeOfConduct "$source" "code-of-conduct-company.com"
 replacePlaceholdersContributorsAgreement "$source" "my-project-name" "MyCompanyName, Country"
 replacePlaceholdersPullRequestTemplate "$source" "https://github.com/tegonal/my-project-name" "$MY_PROJECT_LATEST_VERSION"
 
