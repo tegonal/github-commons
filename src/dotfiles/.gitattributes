@@ -8,23 +8,8 @@
 #
 ###################################
 
-# https://editorconfig.org
+# https://help.github.com/articles/dealing-with-line-endings/
 
-root = true
+# These are explicitly windows files and should use crlf
+*.bat           text eol=crlf
 
-[*]
-charset = utf-8
-indent_style = tab
-end_of_line = lf
-insert_final_newline = true
-trim_trailing_whitespace = true
-
-[*.md]
-insert_final_newline = false
-trim_trailing_whitespace = false
-
-[*.{yml,yaml}]
-indent_size = 2
-
-[*.bat]
-end_of_line = crlf
