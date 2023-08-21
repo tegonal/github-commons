@@ -6,7 +6,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -24,7 +24,7 @@
 #    sourceOnce "$dir_of_tegonal_scripts/utility/checks.sh"
 #
 #    function foo() {
-#    	# shellcheck disable=SC2034   # is passed to checkArgIsArray by name
+#    	# shellcheck disable=SC2034   # is passed by name to checkArgIsArray
 #    	local -rn arr=$1
 #    	local -r fn=$2
 #
@@ -32,7 +32,7 @@
 #    	checkArgIsArray arr 1        # same as exitIfArgIsNotArray if set -e has an effect on this line
 #    	checkArgIsFunction "$fn" 2   # same as exitIfArgIsNotFunction if set -e has an effect on this line
 #
-#    	# shellcheck disable=SC2317   # is passed to checkArgIsArrayWithTuples by name
+#    	# shellcheck disable=SC2317   # is passed by name to checkArgIsArrayWithTuples
 #    	function describeTriple() {
 #    		echo >&2 "array contains 3-tuples with names where the first value is the first-, the second the middle- and the third the lastname"
 #    	}
@@ -42,7 +42,7 @@
 #    	exitIfArgIsNotArray arr 1
 #    	exitIfArgIsNotFunction "$fn" 2
 #
-#    	# shellcheck disable=SC2317   # is passed to exitIfArgIsNotArrayWithTuples by name
+#    	# shellcheck disable=SC2317   # is passed by name to exitIfArgIsNotArrayWithTuples
 #    	function describePair() {
 #    		echo >&2 "array contains 2-tuples with names where the first value is the first-, and the second the lastname"
 #    	}
@@ -102,8 +102,7 @@ function checkArgIsArray() {
 }
 
 function exitIfArgIsNotArray() {
-	# we are aware of that || will disable set -e for checkArgIsArray
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310		# we are aware of that || will disable set -e for checkArgIsArray
 	checkArgIsArray "$@" || exit $?
 }
 
@@ -183,14 +182,13 @@ function checkArgIsArrayWithTuples() {
 }
 
 function exitIfArgIsNotArrayWithTuples() {
-	# we are aware of that || will disable set -e for checkArgIsArrayWithTuples
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310			# we are aware of that || will disable set -e for checkArgIsArrayWithTuples
 	checkArgIsArrayWithTuples "$@" || exit $?
 }
 
 function checkArgIsFunction() {
 	local name argNumber
-	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+	# shellcheck disable=SC2034   # is passed by name to parseFnArgs
 	local -ra params=(name argNumber)
 	parseFnArgs params "$@"
 
@@ -207,8 +205,7 @@ function checkArgIsFunction() {
 }
 
 function exitIfArgIsNotFunction() {
-	# we are aware of that || will disable set -e for checkArgIsFunction
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310			# we are aware of that || will disable set -e for checkArgIsFunction
 	checkArgIsFunction "$@" || exit $?
 }
 
@@ -225,8 +222,7 @@ function checkCommandExists() {
 }
 
 function exitIfCommandDoesNotExist() {
-	# we are aware of that || will disable set -e for checkCommandExists
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310			# we are aware of that || will disable set -e for checkCommandExists
 	checkCommandExists "$@" || exit $?
 }
 

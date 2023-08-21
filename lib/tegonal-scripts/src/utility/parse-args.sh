@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -33,7 +33,7 @@
 #    # parameter definitions where each parameter definition consists of three values (separated via space)
 #    # VARIABLE_NAME PATTERN HELP_TEXT
 #    # where the HELP_TEXT is optional in the sense of that you can use an empty string
-#    # shellcheck disable=SC2034   # is passed to parseArguments by name
+#    # shellcheck disable=SC2034   # is passed by name to parseArguments
 #    declare params=(
 #    	pattern '-p|--pattern' ''
 #    	version '-v' 'the version'
@@ -128,10 +128,12 @@ function parseArguments {
 	while (($# > 0)); do
 		parseArguments_argName="$1"
 		if [[ $parseArguments_argName == --help ]]; then
-			if ! ((parseArguments_numOfArgumentsParsed == 0)); then
-				logWarning "there were arguments defined prior to --help, they will all be ignored and instead parse_args_printHelp will be called"
-			fi
 			parse_args_printHelp parseArguments_paramArr "$parseArguments_examples" "$parseArguments_version"
+			if ! ((parseArguments_numOfArgumentsParsed == 0)); then
+				logWarning "there were arguments defined prior to --help, they were all ignored and instead the help is shown"
+			elif (($# > 1)); then
+				logWarning "there were arguments defined after --help, they were all be ignored, you might want to remove --help"
+			fi
 			return 99
 		fi
 		if [[ $parseArguments_argName == --version ]]; then
@@ -194,7 +196,7 @@ function parse_args_printHelp {
 
 	local arrLength="${#parse_args_printHelp_paramArr[@]}"
 
-	# shellcheck disable=SC2034   # is passed to arrStringEntryMaxLength by name
+	# shellcheck disable=SC2034   # is passed by name to arrStringEntryMaxLength
 	local -a patterns=()
 	arrTakeEveryX parse_args_printHelp_paramArr patterns 3 1
 	local -i maxLength=$(($(arrStringEntryMaxLength patterns) + 2))

@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -32,7 +32,7 @@
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
-export TEGONAL_SCRIPTS_VERSION='v1.1.0'
+export TEGONAL_SCRIPTS_VERSION='v1.2.0'
 
 if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/.."
@@ -42,13 +42,13 @@ sourceOnce "$dir_of_tegonal_scripts/utility/parse-args.sh"
 
 function sneakPeekBanner() {
 	local command file
-	# shellcheck disable=SC2034   # is passed to parseArguments by name
+	# shellcheck disable=SC2034   # is passed by name to parseArguments
 	local -ra params=(
 		command '-c|--command' "either 'show' or 'hide'"
 		file '-f|--file' '(optional) the file where search & replace shall be done -- default: ./README.md'
 	)
 	local -r examples=$(
-		# shellcheck disable=SC2312
+		# shellcheck disable=SC2312		# cat shouldn't fail for a constant string hence fine to ignore exit code
 		cat <<-EOM
 			# hide the sneak peek banner in ./README.md
 			sneak-peek-banner.sh -c hide
