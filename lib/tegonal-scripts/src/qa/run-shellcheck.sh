@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -23,7 +23,7 @@
 #
 #    source "$dir_of_tegonal_scripts/qa/run-shellcheck.sh"
 #
-#    # shellcheck disable=SC2034   # is passed to runShellcheck by name
+#    # shellcheck disable=SC2034   # is passed by name to runShellcheck
 #    declare -a dirs=(
 #    	"$dir_of_tegonal_scripts"
 #    	"$dir_of_tegonal_scripts/../scripts"

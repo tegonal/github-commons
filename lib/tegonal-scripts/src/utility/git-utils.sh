@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please remotert bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -83,8 +83,7 @@ function hasGitChanges() {
 }
 
 function exitIfGitHasChanges() {
-	# we are aware of that `if` will disable set -e for hasGitChanges
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310		# we are aware of that `if` will disable set -e for hasGitChanges
 	if hasGitChanges; then
 		logError "you have uncommitted changes, please commit/stash first, following the output of git status:"
 		git status || exit $?
@@ -94,7 +93,7 @@ function exitIfGitHasChanges() {
 
 function countCommits() {
 	local from to
-	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+	# shellcheck disable=SC2034   # is passed by name to parseFnArgs
 	local -ra params=(from to)
 	parseFnArgs params "$@"
 	git rev-list --count "$from..$to" || die "could not count commits for $from..$to, see above"
@@ -107,8 +106,7 @@ function localGitIsAhead() {
 	local -r branch=$1
 	local -r remote=${2:-"origin"}
 	local -i count
-	# we know that set -e is disabled for countCommits, that OK
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310		# we know that set -e is disabled for countCommits, that OK
 	count=$(countCommits "$remote/$branch" "$branch") || die "the following command failed (see above): countCommits \"$remote/$branch\" \"$branch\""
 	! ((count == 0))
 }
@@ -120,8 +118,7 @@ function localGitIsBehind() {
 	local -r branch=$1
 	local -r remote=${2:-"origin"}
 	local -i count
-	# we know that set -e is disabled for countCommits, that OK
-	# shellcheck disable=SC2310
+	# shellcheck disable=SC2310			# we know that set -e is disabled for countCommits, that OK
 	count=$(countCommits "$branch" "$remote/$branch") || die "the following command failed (see above): countCommits \"$branch\" \"$remote/$branch\""
 	! ((count == 0))
 }
@@ -155,8 +152,7 @@ function latestRemoteTag() {
 	fi
 	local -r remote=${1:-"origin"}
 	local tag
-	# we are aware of that || will disable set -e for remoteTagsSorted
-	#shellcheck disable=SC2310
+	#shellcheck disable=SC2310			# we are aware of that || will disable set -e for remoteTagsSorted
 	tag=$(remoteTagsSorted "$remote" | tail -n 1) || die "could not get remote tags sorted, see above"
 	if [[ -z $tag ]]; then
 		die "looks like remote \033[0;36m%s\033[0m does not have a tag yet." "$remote"

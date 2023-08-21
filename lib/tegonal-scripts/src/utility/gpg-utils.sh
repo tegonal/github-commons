@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -31,8 +31,8 @@
 #    # import public-key.asc into gpg store located at .gt/.gpg and trust automatically
 #    importGpgKey .gt/.gpg ./public-key.asc --confirmation=false
 #
-#    # trust key which is identified via info.com in gpg store located at ~/.gpg
-#    trustGpgKey ~/.gpg info.com
+#    # trust key which is identified via info@tegonal.com in gpg store located at ~/.gpg
+#    trustGpgKey ~/.gpg info@tegonal.com
 #
 ###################################
 set -euo pipefail
@@ -48,7 +48,7 @@ sourceOnce "$dir_of_tegonal_scripts/utility/parse-fn-args.sh"
 
 function trustGpgKey() {
 	local gpgDir keyId
-	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+	# shellcheck disable=SC2034   # is passed by name to parseFnArgs
 	local -ra params=(gpgDir keyId)
 	parseFnArgs params "$@"
 	echo -e "5\ny\n" | gpg --homedir "$gpgDir" --no-tty --command-fd 0 --edit-key "$keyId" trust
@@ -56,7 +56,7 @@ function trustGpgKey() {
 
 function importGpgKey() {
 	local gpgDir file withConfirmation
-	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+	# shellcheck disable=SC2034   # is passed by name to parseFnArgs
 	local -ra params=(gpgDir file withConfirmation)
 	parseFnArgs params "$@"
 

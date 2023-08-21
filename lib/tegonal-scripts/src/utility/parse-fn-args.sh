@@ -5,7 +5,7 @@
 #  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Apache License 2.0
 #  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
 #         /___/
-#                                         Version: v1.1.0
+#                                         Version: v1.2.0
 #
 #######  Description  #############
 #
@@ -28,7 +28,7 @@
 #    	# declare the variable you want to use and repeat in `declare params`
 #    	local command dir
 #
-#    	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+#    	# shellcheck disable=SC2034   # is passed by name to parseFnArgs
 #    	local -ra params=(command dir)
 #    	parseFnArgs params "$@"
 #
@@ -40,7 +40,7 @@
 #
 #    	# in case you want to use a vararg parameter as last parameter then name your last parameter for `params` varargs:
 #    	local command dir varargs
-#    	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+#    	# shellcheck disable=SC2034   # is passed by name to parseFnArgs
 #    	local -ra params=(command dir varargs)
 #    	parseFnArgs params "$@"
 #
