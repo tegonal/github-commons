@@ -100,6 +100,10 @@ You are more than welcome to contribute as well:
 - have a look at
   the [help wanted issues](https://github.com/tegonal/github-commons/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
+Please have a look at
+[CONTRIBUTING.md](https://github.com/tegonal/github-commons/tree/main/.github/CONTRIBUTING.md)
+for further suggestions and guidelines.
+
 # License
 
 The provided scripts are licensed under [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
