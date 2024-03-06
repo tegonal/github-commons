@@ -2,11 +2,11 @@
 #
 #    __                          __
 #   / /____ ___ ____  ___  ___ _/ /       This file is provided to you by https://github.com/tegonal/github-commons
-#  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        It is licensed under Creative Commons Zero v1.0 Universal
-#  \__/\__/\_, /\___/_//_/\_,_/_/         Please report bugs and contribute back your improvements
-#         /___/
-#                                         Version: v1.3.0-SNAPSHOT
+#  / __/ -_) _ `/ _ \/ _ \/ _ `/ /        Copyright 2022 Tegonal Genossenschaft <info@tegonal.com>
+#  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Creative Commons Zero v1.0 Universal
+#         /___/                           Please report bugs and contribute back your improvements
 #
+#                                         Version: v1.3.0-SNAPSHOT
 ###################################
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # DO NOT MODIFY HERE BUT IN src/.github/CODE_OF_CONDUCT.md
