@@ -76,11 +76,9 @@ source "$dir_of_github_commons/gt/pull-hook-functions.sh"
 declare _tag=$1 source=$2 _target=$3
 shift 3 || die "could not shift by 3"
 
-replacePlaceholdersCodeOfConduct "$source" "code-of-conduct@my-company.com"
-replacePlaceholdersContributorsAgreement "$source" "my-project-name" "MyCompanyName, Country"
-replacePlaceholdersPullRequestTemplate "$source" "https://github.com/tegonal/my-project-name" "$MY_PROJECT_LATEST_VERSION"
-
-# also have a look at https://github.com/tegonal/gt/blob/main/.gt/remotes/tegonal-scripts/pull-hook.sh
+# replaces placeholders in all files github-commons provides with placeholders
+replaceTegonalGhCommonsPlaceholders "$source" "my-project-name" "$MY_PROJECT_LATEST_VERSION" \
+	"MyCompanyName, Country"  "code-of-conduct@my-company.com" "my-companies-github-name"
 ```
 
 </gt-pull-hook-functions>
