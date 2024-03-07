@@ -6,7 +6,7 @@ which was based in turn on the Harmony contributor agreements harmonyagreements.
 Thank you for your interest in contributing to
   <PROJECT_NAME>
 currently developed on the platform
-  https://github.com/tegonal/<PROJECT_NAME>
+  https://github.com/<OWNER_GITHUB>/<PROJECT_NAME_GITHUB>
 and owned by
   <OWNER> (the “Project Owner”, hereafter "We" or "Us").
 
