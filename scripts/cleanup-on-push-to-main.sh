@@ -58,11 +58,11 @@ function cleanupOnPushToMain() {
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
 
-	local tegonalFullName tegonalEmail
+	local tegonalFullName tegonalEmail tegonalGithubName
 	source "$dir_of_github_commons/gt/tegonal.data.source.sh" || die "could not source tegonal.data.source.sh"
 
 	replacePlaceholdersCodeOfConduct "$projectDir/.github/CODE_OF_CONDUCT.md" "$tegonalEmail" || die "could not fill the placeholders of code of conduct template"
-	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" "$tegonalFullName" || die "could not fill the placeholders of contributors agreement template"
+	replacePlaceholdersContributorsAgreement "$projectDir/.github/Contributor Agreement.txt" "github-commons" "github-commons" "$tegonalFullName" "$tegonalGithubName" || die "could not fill the placeholders of contributors agreement template"
 	replacePlaceholdersPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders in PULL_REQUEST_TEMPLATE.md"
 	cleanup_putWarning "find \"$projectDir/.github\" -not -name quality-assurance.yml -not -name gt-update.yml" "src"
 	cleanup_putWarning "find \"$projectDir\" -maxdepth 1 -name '.*'" "src/dotfiles"
