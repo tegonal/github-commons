@@ -6,7 +6,7 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Creative Commons Zero v1.0 Universal
 #         /___/                           Please report bugs and contribute back your improvements
 #
-#                                         Version: v2.2.0-SNAPSHOT
+#                                         Version: v2.1.1
 #######  Description  #############
 #
 #  functions which can be used to update the placeholders in the templates in a gt pull-hook.sh
@@ -34,7 +34,7 @@
 #
 #    # replaces placeholders in all files github-commons provides with placeholders
 #    replaceTegonalGhCommonsPlaceholders "$source" "my-project-name" "$MY_PROJECT_LATEST_VERSION" \
-#    	"MyCompanyName, Country"  "code-of-conduct@my-company.com" "my-companies-github-name"
+#    	"MyCompanyName, Country"  "code-of-conduct@my-company.com" "my-companies-github-name" "my-project-github-name"
 #
 ###################################
 set -euo pipefail
