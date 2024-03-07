@@ -19,5 +19,5 @@ shift 3 || die "could not shift by 3"
 
 # replaces placeholders in all files github-commons provides with placeholders
 replaceTegonalGhCommonsPlaceholders "$source" "my-project-name" "$MY_PROJECT_LATEST_VERSION" \
-	"MyCompanyName, Country"  "code-of-conduct@my-company.com" "my-companies-github-name"
+	"MyCompanyName, Country"  "code-of-conduct@my-company.com" "my-companies-github-name" "my-project-github-name"
 
