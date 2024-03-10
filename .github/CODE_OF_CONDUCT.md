@@ -6,7 +6,7 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Creative Commons Zero v1.0 Universal
 #         /___/                           Please report bugs and contribute back your improvements
 #
-#                                         Version: v2.3.0-SNAPSHOT
+#                                         Version: v2.3.0
 ###################################
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # DO NOT MODIFY HERE BUT IN src/.github/CODE_OF_CONDUCT.md
@@ -74,7 +74,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-info2@tegonal.com.
+info@tegonal.com.
 All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the
