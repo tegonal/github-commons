@@ -10,6 +10,7 @@
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
+TEGONAL_GITHUB_COMMONS_VERSION="v2.3.0"
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
@@ -21,22 +22,35 @@ if ! [[ -v projectDir ]]; then
 	readonly projectDir
 fi
 
+if ! [[ -v dir_of_github_commons ]]; then
+	dir_of_github_commons="$projectDir/src"
+	readonly dir_of_github_commons
+fi
+
 if ! [[ -v dir_of_tegonal_scripts ]]; then
-	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
+	dir_of_tegonal_scripts="$scriptsDir/../lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
-sourceOnce "$dir_of_tegonal_scripts/utility/checks.sh"
+sourceOnce "$dir_of_tegonal_scripts/utility/parse-args.sh"
 
-function additionalPrepareNextSteps() {
-	# keep in sync with local -r further below (3 lines at the time of writing)
-	exitIfVarsNotAlreadySetBySource devVersion
-	# we help shellcheck to realise that these variables are initialised
-	local -r devVersion="$devVersion"
+function updateVersionInNonShFiles() {
+	source "$dir_of_tegonal_scripts/releasing/common-constants.source.sh" || die "could not source common-constants.source.sh"
+	local version projectsRootDir
+	# shellcheck disable=SC2034   # is passed by name to parseArguments
+	local -ra params=(
+  	version "$versionParamPattern" "$versionParamDocu"
+  	projectsRootDir "$projectsRootDirParamPattern" "$projectsRootDirParamDocu"
+  )
+	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
 
-	find "$projectDir/src" -type f \
+	logInfo "going to update version in non-sh files to %s" "$version"
+
+	find "$projectsRootDir/src" -type f \
 		-not -name "*.sh" -print0 |
 		while read -r -d $'\0' file; do
-			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}${devVersion}/g;" "$file"
+			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
 		done
 }
-additionalPrepareNextSteps
+
+${__SOURCED__:+return}
+updateVersionInNonShFiles "$@"
