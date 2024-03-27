@@ -10,6 +10,7 @@
 set -euo pipefail
 shopt -s inherit_errexit
 unset CDPATH
+TEGONAL_GITHUB_COMMONS_VERSION="v2.3.0"
 
 if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
@@ -31,8 +32,25 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
 sourceOnce "$dir_of_tegonal_scripts/releasing/release-files.sh"
+sourceOnce "$scriptsDir/before-pr.sh"
+sourceOnce "$scriptsDir/prepare-next-dev-cycle.sh"
+sourceOnce "$scriptsDir/update-version-in-non-sh-files.sh"
 
 function release() {
+	source "$dir_of_tegonal_scripts/releasing/common-constants.source.sh" || die "could not source common-constants.source.sh"
+
+	local version
+	# shellcheck disable=SC2034   # they seem unused but are necessary in order that parseArguments doesn't create global readonly vars
+	local key branch nextVersion prepareOnly
+	# shellcheck disable=SC2034   # is passed by name to parseArguments
+	local -ra params=(
+		version "$versionParamPattern" "$versionParamDocu"
+		key "$keyParamPattern" "$keyParamDocu"
+		branch "$branchParamPattern" "$branchParamDocu"
+		nextVersion "$nextVersionParamPattern" "$nextVersionParamDocu"
+		prepareOnly "$prepareOnlyParamPattern" "$prepareOnlyParamDocu"
+	)
+	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
 
 	function findFilesToRelease() {
 		find "$projectDir/src" \
@@ -40,8 +58,24 @@ function release() {
 			"$@"
 	}
 
+	function release_afterVersionHook() {
+		local version projectsRootDir additionalPattern
+		parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
+
+		updateVersionInNonShFiles -v "$version" --project-dir "$projectsRootDir"
+
+		# cleanup-on-push-to-main relies on the latest version, i.e. we need to re-source the file in order that this change
+		# is taken into account as well
+		sourceAlways "$scriptsDir/cleanup-on-push-to-main.sh"
+	}
+
 	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_(?:LATEST_)?VERSION=['\"])[^'\"]+(['\"])"
-	releaseFiles --project-dir "$projectDir" -p "$additionalPattern" --sign-fn findFilesToRelease "$@"
+	releaseFiles \
+		--project-dir "$projectDir" \
+		--pattern "$additionalPattern" \
+		"$@" \
+		--sign-fn findFilesToRelease \
+		--after-version-update-hook release_afterVersionHook
 }
 
 ${__SOURCED__:+return}
