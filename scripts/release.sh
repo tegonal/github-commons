@@ -69,6 +69,7 @@ function release() {
 		sourceAlways "$scriptsDir/cleanup-on-push-to-main.sh"
 	}
 
+	# similar as in prepare-next-dev-cycle.sh, you might need to update it there as well if you change something here
 	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_(?:LATEST_)?VERSION=['\"])[^'\"]+(['\"])"
 	releaseFiles \
 		--project-dir "$projectDir" \

@@ -40,6 +40,7 @@ function prepareNextDevCycle() {
 		updateVersionInNonShFiles -v "$version-SNAPSHOT" --project-dir "$projectsRootDir"
 	}
 
+	# similar as in release.sh, you might need to update it there as well if you change something here
 	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
 
 	prepareFilesNextDevCycle \
