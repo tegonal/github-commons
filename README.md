@@ -18,7 +18,7 @@
 
 This repository contains files we are (re-)using in our OSS work published on github.  
 Feel free to use them as well, they are licensed under [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).  
-(Take also a look at our bash [scripts](https://github.com/tegonal/scripts) which are licensed under Apache 2.0)
+You might also be interested in our [oss-template](https://github.com/tegonal/oss-template) which uses them as well next to other files such as our bash [scripts](https://github.com/tegonal/scripts).
 
 **Table of Content**
 - [How to use it](#how-to-use-it)
