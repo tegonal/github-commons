@@ -104,5 +104,5 @@ for further suggestions and guidelines.
 
 # License
 
-Most provided files are licensed under [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
+Most provided files are licensed under [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).  
 Some files might be licensed under a different license, see header of the file.
