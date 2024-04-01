@@ -48,7 +48,7 @@ function updateVersionInNonShFiles() {
 	find "$projectsRootDir/src" -type f \
 		-not -name "*.sh" -print0 |
 		while read -r -d $'\0' file; do
-			perl -0777 -i -pe "s/(# {4,}Version: ).*/\${1}$version/g;" "$file"
+			perl -0777 -i -pe "s/((?:#|//) {4,}Version: ).*/\${1}$version/g;" "$file"
 		done
 }
 
