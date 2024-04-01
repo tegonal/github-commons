@@ -57,6 +57,7 @@ function cleanupOnPushToMain() {
 
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
+	rm "$projectDir/.github/workflows/matrix_commons.js"
 
 	local tegonalFullName tegonalEmail tegonalGithubName
 	source "$dir_of_github_commons/gt/tegonal.data.source.sh" || die "could not source tegonal.data.source.sh"
