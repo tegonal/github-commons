@@ -43,6 +43,8 @@ function prepareNextDevCycle() {
 		beforePrFn "$beforePrFnParamPattern" "$beforePrFnParamDocu"
 	)
 	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
+	# we don't check if all args are set (and neither set default values) as we currently don't use
+	# any param in here but just delegate to prepareFilesNextDevCycle.
 
 	function prepare_next_afterVersionHook() {
 		local version projectsRootDir additionalPattern
