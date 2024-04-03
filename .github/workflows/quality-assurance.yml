@@ -2,11 +2,12 @@ name: Quality Assurance
 on: [ push, pull_request ]
 
 jobs:
-  QA:
+  before_pr:
+    name: before-pr.sh
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: install shellcheck
         run: ./lib/tegonal-scripts/src/ci/install-shellcheck.sh
-      - name: run before-pr
+      - name: before-pr.sh
         run: ./scripts/before-pr.sh
