@@ -43,8 +43,9 @@ function prepareNextDevCycle() {
 		beforePrFn "$beforePrFnParamPattern" "$beforePrFnParamDocu"
 	)
 	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
-	# we don't check if all args are set (and neither set default values) as we currently don't use
-	# any param in here but just delegate to prepareFilesNextDevCycle.
+	# we don't check if all args are set (and neither set default values for most) as we currently don't use
+	# any param in here (except for projectsRootDir) but just delegate to prepareFilesNextDevCycle.
+	if ! [[ -v projectsRootDir ]]; then projectsRootDir=$(realpath ".") || die "could not determine realpath of ."; fi
 
 	function prepare_next_afterVersionHook() {
 		local version projectsRootDir additionalPattern
