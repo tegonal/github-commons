@@ -31,6 +31,7 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$projectDir/lib/tegonal-scripts/src"
 	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
 fi
+sourceOnce "$dir_of_tegonal_scripts/utility/cleanups.sh"
 sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
 
@@ -47,6 +48,8 @@ function cleanup_putWarning() {
 }
 
 function cleanupOnPushToMain() {
+	removeUnusedSignatures "$projectDir"
+
 	find "$dir_of_github_commons/dotfiles" -type f -name ".*" -not -name '.*.sig' -print0 |
 		while read -r -d $'\0' file; do
 			cp "$file" "$projectDir/" || return $?
