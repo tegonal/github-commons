@@ -64,7 +64,7 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 	// This specifies the order of axes in CI job name (individual titles would be joined with a comma)
 	matrix.setNamePattern(['java_version', 'java_distribution', 'os']);
 
-	// arm64 architecture is not suported for IBM Semeru
+	// arm64 architecture is not supported by IBM Semeru
 	matrix.exclude({java_distribution: 'semeru', os: 'macos-latest'});
 
 	generateJavaMinMaxRows(matrix);
@@ -92,7 +92,7 @@ function setOutput(key, value) {
 	const output = process.env['GITHUB_OUTPUT']
 	if (output !== undefined){
 		fs.appendFileSync(output, `${key}=${value}${os.EOL}`)
-	} else{
+	} else {
 		console.log('::set-output name=' + key + '::' + value);
 	}
 }
