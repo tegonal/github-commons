@@ -49,7 +49,7 @@ gt pull -r tegonal-gh-commons -p src/gt/pull-hook-functions.sh
 ```
 
 However, they require the utility functions of [tegonal-scripts](https://github.com/tegonal/scripts) to be fetched alongside of github-commons.
-Thus, if you have not already pulled tegonal-scripts, then [gt pull them](https://github.com/tegonal/scripts#Installation]).
+Thus, if you have not already pulled tegonal-scripts, then [gt pull them](https://github.com/tegonal/scripts#Installation).
 
 And then in your pull-hook.sh you can use it as follows:
 
