@@ -28,7 +28,12 @@ You might also be interested in our [oss-template](https://github.com/tegonal/os
 
 # How to use it
 
-Typically, we fetch the files of this repository via [gt](https://github.com/tegonal/gt) into our projects.  
+In case you start a new open source project, then consider basing your repository on [Tegonal's OSS-template](https://github.com/tegonal/oss-template).
+It has already setup github-commons as remote for [gt](https://github.com/tegonal/gt) and pulled several files. 
+If you want to use it in an existing project, then we recommend you [download Tegonal's OSS-template](https://github.com/tegonal/oss-template/archive/refs/heads/main.zip),
+initialise it as described in the readme and then copy the files you want to your existing repsoitory.
+
+If the above does not sound like a plan, then we recommend you fetch the files you need of this repository via [gt](https://github.com/tegonal/gt) into our projects.  
 If you want to fetch them with gt as well, then set up a corresponding remote
 ```bash
 gt remote add -r tegonal-gh-commons -u https://github.com/tegonal/github-commons
