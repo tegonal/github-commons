@@ -22,6 +22,7 @@ const javaDistributionAxis = {
 		'semeru',
 		'temurin',
 		'zulu',
+		'sapmachine'
 	]
 };
 
