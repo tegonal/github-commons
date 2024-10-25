@@ -107,6 +107,16 @@ Please have a look at
 [CONTRIBUTING.md](https://github.com/tegonal/github-commons/tree/main/.github/CONTRIBUTING.md)
 for further suggestions and guidelines.
 
+## Extend expiration of signing-key
+
+Execute the following script, which will extend the sub-key 945FE615904E5C85 by one year and copies it to 
+src/gt/signing-key.public.asc and also signs it again with the key 4B78012139378220 and finally copies the files
+to the .gt folder.
+
+```bash
+./scripts/extend-expiration-signing-key.sh
+```
+
 # License
 
 Most provided files are licensed under [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).  
