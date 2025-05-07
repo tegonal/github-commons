@@ -35,3 +35,4 @@ v4.8.0	src/releasing/prepare-next-dev-cycle-template.sh	../lib/tegonal-scripts/s
 v4.8.0	src/utility/http.sh	../lib/tegonal-scripts/src/utility/http.sh	.*	97094389363aa948037162306d7c14addfe267edb536b4e5c4e6ac59ae4793593672ee5ab05a442e808345b163b9797d533a979fbc426da64df32a8c12bba9be
 v4.8.0	src/utility/execute-if-defined.sh	../lib/tegonal-scripts/src/utility/execute-if-defined.sh	.*	21e02956ae6408729d9a6fd84688986e33722f5a8104c8e62ea3f8af1bd50507088b7052a8c828a9078f8b05823f41a5ff55c9db247f9b6f52477d413faaea22
 v4.8.0	src/utility/cleanups.sh	../lib/tegonal-scripts/src/utility/cleanups.sh	.*	1e55aacd730c4be6aa2806b819cd8c68257013867e293cf4857f681d48abc22c5c289c155a471c620c41026002bf4ab4cdd657d73d4d0ef48c46a8d9c4057e6b
+v4.8.0	src/utility/string-utils.sh	../lib/tegonal-scripts/src/utility/string-utils.sh	.*	69447bd0e62964ff78abc6ff528a93d37f0ba26c2f73f831dbb569a36a7e18b5d924f55ae31506cb0e6f081716e57acc271ea0d6a8271fb7d01f88ae95e6f0b2
