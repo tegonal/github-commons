@@ -36,7 +36,7 @@ function extendExpirationSigningKey() {
 	tmpDir=$(mktemp -d -t signing-key-XXXXXXXXXX)
 	local -r gpgDir="$tmpDir/gpg"
 
-		trap '[[ -d "$tmpDir" ]] && rm -r "$tmpDir"' EXIT
+		trap '[[ -d '"$tmpDir"' ]] && rm -r '"$tmpDir"'' EXIT
 
 	function setupTmpDir() {
   	! [[ -d "$tmpDir" ]] && mkdir "$tmpDir"
