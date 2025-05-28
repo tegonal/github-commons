@@ -36,23 +36,25 @@ function extendExpirationSigningKey() {
 	tmpDir=$(mktemp -d -t signing-key-XXXXXXXXXX)
 	local -r gpgDir="$tmpDir/gpg"
 
-		trap '[[ -d '"$tmpDir"' ]] && rm -r '"$tmpDir"'' EXIT
+	# we want to evaluate it now as it will not change afterwards and tmpDir might be out of scope afterwards
+	# shellcheck disable=SC2064
+	trap "[[ -d '$tmpDir' ]] && rm -r '$tmpDir'" EXIT
 
 	function setupTmpDir() {
-  	! [[ -d "$tmpDir" ]] && mkdir "$tmpDir"
-  	mkdir "$gpgDir"
-  	chmod 700 "$gpgDir"
-  }
+		! [[ -d "$tmpDir" ]] && mkdir "$tmpDir"
+		mkdir "$gpgDir"
+		chmod 700 "$gpgDir"
+	}
 
-  function importGpgViaClipboard() {
-  	local -r keyId=$2
-  	echo "copy the private key of $keyId into your clipboard and press enter"
-  	read -r
-  	xclip -o -sel clipboard >"$tmpDir/$keyId.asc"
-  	gpg --homedir "$gpgDir" --import "$tmpDir/$keyId.asc"
+	function importGpgViaClipboard() {
+		local -r keyId=$2
+		echo "copy the private key of $keyId into your clipboard and press enter"
+		read -r
+		xclip -o -sel clipboard >"$tmpDir/$keyId.asc"
+		gpg --homedir "$gpgDir" --import "$tmpDir/$keyId.asc"
 
-  	gpg --homedir "$gpgDir" --list-secret-keys
-  }
+		gpg --homedir "$gpgDir" --list-secret-keys
+	}
 
 	local -r signingKey="$dir_of_github_commons/gt/signing-key.public.asc"
 	local -r actualSig="$dir_of_github_commons/gt/signing-key.public.asc.actual_sig"
@@ -67,7 +69,7 @@ function extendExpirationSigningKey() {
 
 	setupTmpDir
 	importGpgViaClipboard "$tmpDir" 4B78012139378220
-	gpg --homedir "$gpgDir" --detach-sign -u 4B78012139378220 --output "$actualSig"  "$signingKey"
+	gpg --homedir "$gpgDir" --detach-sign -u 4B78012139378220 --output "$actualSig" "$signingKey"
 	rm -r "$tmpDir"
 
 	"$scriptsDir/before-pr.sh"
