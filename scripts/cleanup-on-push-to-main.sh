@@ -60,6 +60,7 @@ function cleanupOnPushToMain() {
 
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
+	rm "$projectDir/.github/workflows/matrix_builder.js"
 	rm "$projectDir/.github/workflows/matrix_commons.js"
 
 	local tegonalFullName tegonalEmail tegonalGithubName
