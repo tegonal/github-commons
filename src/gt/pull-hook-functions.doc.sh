@@ -13,10 +13,17 @@ fi
 
 source "$dir_of_github_commons/gt/pull-hook-functions.sh"
 
-declare _tag=$1 source=$2 _target=$3
-shift 3 || die "could not shift by 3"
+# tegonal's github-commons was fetched with gt and remote is named tegonal_gh_commons
+function gt_pullHook_tegonal_gh_commons_before() {
+	local _tag=$1 source=$2 _target=$3
+	shift 3 || die "could not shift by 3"
 
-# replaces placeholders in all files github-commons provides with placeholders
-replaceTegonalGhCommonsPlaceholders "$source" "my-project-name" "$MY_PROJECT_LATEST_VERSION" \
-	"MyCompanyName, Country"  "code-of-conduct@my-company.com" "my-companies-github-name" "my-project-github-name"
+	# replaces placeholders in all files github-commons provides with placeholders
+	replaceTegonalGhCommonsPlaceholders "$source" "my-project-name" "$MY_PROJECT_LATEST_VERSION" \
+		"MyCompanyName, Country" "code-of-conduct@my-company.com" "my-companies-github-name" "my-project-github-name"
+}
 
+function gt_pullHook_tegonal_gh_commons_after() {
+	# no op, nothing to do (or replace with your logic)
+	:
+}
