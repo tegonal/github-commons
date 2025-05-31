@@ -17,12 +17,14 @@ const javaDistributionAxis = {
 	name: 'java_distribution',
 	values: [
 		'corretto',
+		'dragonwell',
+		'graalvm',
 		'liberica',
 		'microsoft',
+		'sapmachine',
 		'semeru',
 		'temurin',
 		'zulu',
-		'sapmachine'
 	]
 };
 
