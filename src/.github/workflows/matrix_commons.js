@@ -64,6 +64,9 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 	matrix.addAxis(versionAxis);
 	matrix.addAxis(operatingSystemAxis);
 
+	// graalvm requires at least jdk 17
+	matrix.exclude({java_distribution: 'graalvm', java_version: '11'});
+
 	// This specifies the order of axes in CI job name (individual titles would be joined with a comma)
 	matrix.setNamePattern(['java_version', 'java_distribution', 'os']);
 
