@@ -67,6 +67,9 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 	// graalvm requires at least jdk 17
 	matrix.exclude({java_distribution: 'graalvm', java_version: '11'});
 
+	// dragonwell doesn't support macOS (arm64)
+	matrix.exclude({java_distribution: 'dragonwell', os: 'macos-latest'});
+
 	// This specifies the order of axes in CI job name (individual titles would be joined with a comma)
 	matrix.setNamePattern(['java_version', 'java_distribution', 'os']);
 
