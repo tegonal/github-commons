@@ -64,8 +64,10 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 	matrix.addAxis(versionAxis);
 	matrix.addAxis(operatingSystemAxis);
 
-	// graalvm requires at least jdk 17
+	// graalvm requires at least jdk 17 but for jdk 17 only jdk 17.0.12 is supported (but rewriting 17 to 17.0.12 has
+	// other implications). Thus, to keep it simple, we don't support jdk 11 and 17 for graalvm
 	matrix.exclude({java_distribution: 'graalvm', java_version: '11'});
+	matrix.exclude({java_distribution: 'graalvm', java_version: '17'});
 
 	// dragonwell doesn't support macOS (arm64)
 	matrix.exclude({java_distribution: 'dragonwell', os: 'macos-latest'});
