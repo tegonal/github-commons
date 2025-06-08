@@ -18,7 +18,11 @@ const javaDistributionAxis = {
 	values: [
 		'corretto',
 		'dragonwell',
+
+		// we run into github api rate limits with those two from time to time, disable them if it starts to be too annoying
 		'graalvm',
+		'jetbrains',
+
 		'liberica',
 		'microsoft',
 		'sapmachine',
