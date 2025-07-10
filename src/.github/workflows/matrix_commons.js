@@ -19,9 +19,9 @@ const javaDistributionAxis = {
 		'corretto',
 		'dragonwell',
 
-		// we run into github api rate limits with those two from time to time, disable them if it starts to be too annoying
+		// we ran into github API rate limits with those two from time to time, disable them if it starts to be too annoying
 		'graalvm',
-		'jetbrains',
+		//'jetbrains',
 
 		'liberica',
 		'microsoft',
