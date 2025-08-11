@@ -1,17 +1,17 @@
 <!-- for main -->
-<!--
+
 [![Download](https://img.shields.io/badge/Download-v3.2.0-%23007ec6)](https://github.com/tegonal/github-commons/releases/tag/v3.2.0)
 [![Creative Commons Zero v1.0 Universal](https://img.shields.io/badge/%E2%9A%96-Apache%202.0-%230b45a6)](https://creativecommons.org/publicdomain/zero/1.0/ "License")
 [![Quality Assurance](https://github.com/tegonal/github-commons/actions/workflows/quality-assurance.yml/badge.svg?event=push&branch=main)](https://github.com/tegonal/github-commons/actions/workflows/quality-assurance.yml?query=branch%3Amain)
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/tegonal/github-commons/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in discussions for help")
--->
+
 <!-- for main end -->
 <!-- for release -->
-
+<!--
 [![Download](https://img.shields.io/badge/Download-v3.2.0-%23007ec6)](https://github.com/tegonal/github-commons/releases/tag/v3.2.0)
 [![Creative Commons Zero v1.0 Universal](https://img.shields.io/badge/%E2%9A%96-Apache%202.0-%230b45a6)](https://creativecommons.org/publicdomain/zero/1.0/ "License")
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/tegonal/github-commons/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in discussions for help")
-
+-->
 <!-- for release end -->
 
 # Tegonal's github-commons
