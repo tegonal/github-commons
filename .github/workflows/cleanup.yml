@@ -5,7 +5,7 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Creative Commons Zero v1.0 Universal
 #         /___/                           Please report bugs and contribute back your improvements
 #
-#                                         Version: v3.2.0-SNAPSHOT
+#                                         Version: v3.2.0
 ###################################
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # DO NOT MODIFY HERE BUT IN src/.github/workflows/cleanup.yml
@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Cleanup Sources
         run: ./scripts/cleanup-on-push-to-main.sh
       - name: Create Pull Request if necessary
