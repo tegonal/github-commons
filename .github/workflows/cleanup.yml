@@ -25,8 +25,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
+      #gt-placeholder-install-dependencies-start
+      #gt-placeholder-install-dependencies-end
+
       - name: Cleanup Sources
         run: ./scripts/cleanup-on-push-to-main.sh
+
       - name: Create Pull Request if necessary
         uses: peter-evans/create-pull-request@v7
         with:
