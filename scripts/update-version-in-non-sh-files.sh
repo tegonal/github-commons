@@ -38,9 +38,9 @@ function updateVersionInNonShFiles() {
 	local version projectsRootDir
 	# shellcheck disable=SC2034   # is passed by name to parseArguments
 	local -ra params=(
-  	version "$versionParamPattern" "$versionParamDocu"
-  	projectsRootDir "$projectsRootDirParamPattern" "$projectsRootDirParamDocu"
-  )
+		version "$versionParamPattern" "$versionParamDocu"
+		projectsRootDir "$projectsRootDirParamPattern" "$projectsRootDirParamDocu"
+	)
 	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
 
 	logInfo "going to update version in non-sh files to %s" "$version"

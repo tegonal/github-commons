@@ -34,6 +34,7 @@ fi
 sourceOnce "$dir_of_tegonal_scripts/utility/cleanups.sh"
 sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/update-bash-docu.sh"
+sourceOnce "$scriptsDir/run-shfmt.sh"
 
 function cleanup_putWarning() {
 	local -r findCommand=$1
@@ -48,7 +49,8 @@ function cleanup_putWarning() {
 }
 
 function cleanupOnPushToMain() {
-	removeUnusedSignatures "$projectDir"
+	customRunShfmt || die "was not able to format"
+	removeUnusedSignatures "$projectDir" || die "was not able to remove unused signatures"
 
 	find "$dir_of_github_commons/dotfiles" -type f -name ".*" -not -name '.*.sig' -print0 |
 		while read -r -d $'\0' file; do
@@ -71,6 +73,8 @@ function cleanupOnPushToMain() {
 	replacePlaceholdersPullRequestTemplate "$projectDir/.github/PULL_REQUEST_TEMPLATE.md" "https://github.com/tegonal/github-commons" "$TEGONAL_GITHUB_COMMONS_LATEST_VERSION" || die "could not fill the placeholders in PULL_REQUEST_TEMPLATE.md"
 	cleanup_putWarning "find \"$projectDir/.github\" -not -name quality-assurance.yml -not -name gt-update.yml" "src"
 	cleanup_putWarning "find \"$projectDir\" -maxdepth 1 -name '.*'" "src/dotfiles"
+
+	perl -0777 -i -pe 's@\n( +)(#gt-placeholder-install-dependencies-start\n)@\n$1$2$1- name: install shfmt\n$1  run: ./lib/tegonal-scripts/src/ci/install-shfmt.sh\n@' "$projectDir/.github/workflows/cleanup.yml"
 
 	find "$dir_of_github_commons" -type f \
 		-name "*.sh" \
