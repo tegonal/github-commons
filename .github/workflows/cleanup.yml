@@ -32,7 +32,7 @@ jobs:
     #gt-placeholder-runs-on-end
     steps:
       #gt-placeholder-gh-action-checkout-start
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       #gt-placeholder-gh-action-checkout-end
 
       #gt-placeholder-install-dependencies-start
