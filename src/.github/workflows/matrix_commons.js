@@ -84,14 +84,7 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 }
 
 function configureKotlinDefaults(matrix, distributionAxis = javaDistributionAxis, versionAxis = javaVersionAxis, operatingSystemAxis = osAxis) {
-const kotlinJavaDistributionAxis = {
-		...javaDistributionAxis,
-		values: distributionAxis.values.filter ( x =>
-			// seems to have problems with kotlin https://youtrack.jetbrains.com/issue/KT-61836
-			x != 'semeru'
-		)
-	};
-	configureJavaDefaults(matrix, kotlinJavaDistributionAxis, versionAxis, operatingSystemAxis);
+	configureJavaDefaults(matrix, distributionAxis, versionAxis, operatingSystemAxis);
 }
 
 function configureScalaDefaults(matrix, distributionAxis = javaDistributionAxis, versionAxis = javaVersionAxis, operatingSystemAxis = osAxis) {
