@@ -6,7 +6,7 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Creative Commons Zero v1.0 Universal
 #         /___/                           Please report bugs and contribute back your improvements
 #
-#                                         Version: v5.1.0-SNAPSHOT
+#                                         Version: v5.0.1
 ###################################
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # DO NOT MODIFY HERE BUT IN src/.github/CODE_OF_CONDUCT.md
