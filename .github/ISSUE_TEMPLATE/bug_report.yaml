@@ -11,7 +11,7 @@ body:
     attributes:
       label: Affected Version
       description: What version of github-commons are you using?
-      placeholder: "v5.0.1"
+      placeholder: "v5.0.2"
     validations:
       required: true
   - type: textarea
