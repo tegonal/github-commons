@@ -33,6 +33,8 @@ jobs:
       #gt-placeholder-gh-action-checkout-end
 
       #gt-placeholder-install-dependencies-start
+      - name: install shfmt
+        run: ./lib/tegonal-scripts/src/ci/install-shfmt.sh
       #gt-placeholder-install-dependencies-end
 
       - name: Cleanup Sources
@@ -61,14 +63,19 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         #gt-placeholder-gh-action-create-pull-request-end
         with:
+          #gt-placeholder-branch-start
           branch: auto-cleanup
+          #gt-placeholder-branch-end
+          #gt-placeholder-title-and-co-start
           title: Auto Cleanup
           commit-message: auto cleanup sources
           body: Looks like someone forgot to run ./scripts/cleanup-on-push-to-main.sh before committing. I did it for them :)
+          #gt-placeholder-title-and-co-end
           delete-branch: true
+          #gt-placeholder-token-and-co-start
           token: ${{ secrets.AUTO_PR_TOKEN }}
           push-to-fork: ${{ vars.AUTO_PR_FORK_NAME != '' && vars.AUTO_PR_FORK_NAME || secrets.AUTO_PR_FORK_NAME }}
-
+          #gt-placeholder-token-and-co-end
 
       - name: set reviewer
         if: ${{ steps.check-collaborator.outputs.reviewer != '' && steps.check-collaborator.outputs.reviewer != null && steps.create-pr.outputs.pull-request-operation == 'created' }}
