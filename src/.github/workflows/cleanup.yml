@@ -37,6 +37,8 @@ jobs:
 
       - name: Cleanup Sources
         run: ./scripts/cleanup-on-push-to-main.sh
+      #gt-placeholder-additional-steps-start
+      #gt-placeholder-additional-steps-end
 
       - name: Check if actor is collaborator
         id: check-collaborator
