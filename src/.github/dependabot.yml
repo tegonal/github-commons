@@ -11,8 +11,12 @@ version: 2
 updates:
   - package-ecosystem: github-actions
     directory: "/"
+    #gt-placeholder-schedule-start
     schedule:
       interval: monthly
+    #gt-placeholder-schedule-end
+    #gt-placeholder-pr-limit-start
     open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
+    #gt-placeholder-pr-limit-end
+    #gt-placeholder-extensions-start
+    #gt-placeholder-extensions-end
