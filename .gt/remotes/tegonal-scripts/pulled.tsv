@@ -38,3 +38,4 @@ v4.11.0	src/utility/cleanups.sh	../lib/tegonal-scripts/src/utility/cleanups.sh	.
 v4.11.0	src/utility/string-utils.sh	../lib/tegonal-scripts/src/utility/string-utils.sh	.*	false	e6bad5ae8aa26188d1f09815d5336b85e4dfdb4e92f8869d531d8f095410293b0aa67bdc117b45f23bc23a6804d79e83392cb6d0735ecbd97d2d478e60bab473
 v4.11.0	src/ci/install-shfmt.sh	../lib/tegonal-scripts/src/ci/install-shfmt.sh	.*	false	43dc9cbefc9eb0ae965e022cd413675bdad95d1b4ba36c82d444aaca2212f85a800b8f52140acde0968e70b0a609b4ff01498400273b639832bbb32225463831
 v4.11.0	src/qa/run-shfmt.sh	../lib/tegonal-scripts/src/qa/run-shfmt.sh	.*	false	0c34f42975fc9459a6f8014bc4c72a1c1dff5c6eca36761dcadc46b1690d84e5aafed74dd48a16533eff89dfa5141c26640429a6b2c9fb0ce2b47f45a68e392c
+v4.11.0	src/setup_tegonal_scripts.sh	../lib/tegonal-scripts/src/setup_tegonal_scripts.sh	.*	false	4802417b353cad2de4c2ff52cae73bab06ab294d6af4e3d85ae08e2d6bf63a7ead5eb68c2404238ef667064e8ea2fe319b437c693f7cceb3ba29ab9f1718ab7a

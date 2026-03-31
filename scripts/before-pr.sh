@@ -15,21 +15,8 @@ if ! [[ -v scriptsDir ]]; then
 	scriptsDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)"
 	readonly scriptsDir
 fi
+source "$scriptsDir/dirs.source.sh"
 
-if ! [[ -v projectDir ]]; then
-	projectDir="$(realpath "$scriptsDir/../")"
-	readonly projectDir
-fi
-
-if ! [[ -v dir_of_github_commons ]]; then
-	dir_of_github_commons="$projectDir/src"
-	readonly dir_of_github_commons
-fi
-
-if ! [[ -v dir_of_tegonal_scripts ]]; then
-	dir_of_tegonal_scripts="$scriptsDir/../lib/tegonal-scripts/src"
-	source "$dir_of_tegonal_scripts/setup.sh" "$dir_of_tegonal_scripts"
-fi
 sourceOnce "$scriptsDir/run-shellcheck.sh"
 sourceOnce "$scriptsDir/cleanup-on-push-to-main.sh"
 
