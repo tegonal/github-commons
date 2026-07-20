@@ -49,8 +49,8 @@ function cleanupOnPushToMain() {
 
 	cp -r "$dir_of_github_commons"/.github/* "$projectDir/.github/" || die "could not copy files to .github"
 	find "$projectDir/.github" -type f -name "*.sig" -exec rm -f {} \; || true
-	rm "$projectDir/.github/workflows/matrix_builder.js"
-	rm "$projectDir/.github/workflows/matrix_commons.js"
+	rm "$projectDir/.github/workflows/matrix_commons.mjs" || logWarning "could not delete matrix_common.js - do it manually"
+	rm "$projectDir/.github/workflows/vlsi_matrix_builder.mjs" || logWarning "could not delete vlsi_matrix_builder.mjs - do it manually"
 
 	local tegonalFullName tegonalEmail tegonalGithubName
 	source "$dir_of_github_commons/gt/tegonal.data.source.sh" || die "could not source tegonal.data.source.sh"

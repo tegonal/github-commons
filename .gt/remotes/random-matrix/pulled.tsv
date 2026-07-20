@@ -1,3 +1,5 @@
 #@ Version: 1.2.0
 tag	file	relativeTarget	tagFilter	hasPlaceholder	sha512
-v1.0.0	src/matrix_builder.js	../src/.github/workflows/matrix_builder.js	.*	false	b727314caf39cd5509a82d4083c35f68b5278220e704655f58bca3e9f987726ca345ff8544e1b4eedc77a1040622e9edd296145a9d9a27cc628d84768699b4ba
+v2.4.0	src/matrix_builder.mjs	../src/.github/workflows/matrix_builder.mjs	.*	false	cf48941bad888955afe5b47db798b5b310edb5eab8b5fc83370a8db26cfd3beb9cb2a738d7982a7384b83bb754a752f8c28c2121847ebf7f454cbcdddb9c5b06
+v2.4.0	src/github_matrix_builder.mjs	../src/.github/workflows/github_matrix_builder.mjs	.*	false	4351a460dbec02e752b4270fbb7608233d78f60444766b10a4839455775cdf6ec5836356c7e00d52316f11537960dd39695684c44105e0bb1ab9257494c39ccd
+v2.4.0	src/seedrandom.cjs	../src/.github/workflows/seedrandom.cjs	.*	false	b43e59784bcec8a0bb0c531fa96c4e814ffa66b8e1ed2fb57214b835ed2ad472357f8f02d356c8def1c6a954a4488ccd2cdd1a433c447894949235e559416d6c
