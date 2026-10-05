@@ -20,16 +20,11 @@ source "$scriptsDir/dirs.source.sh"
 sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/parse-fn-args.sh"
 
-function gt_pullHook_random_matrix_before() {
+function pull_hook_after() {
 	# no op, nothing to do
-	:
-}
-
-function gt_pullHook_random_matrix_after() {
-	# no op, nothing to do
-	local _tag source target
+	local _currentTag _tag source target
 	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
-	local -ra params=(_tag source target)
+	local -ra params=(_currentTag _tag source target)
 	parseFnArgs params "$@"
 
 	local -r builder="$projectDir/src/.github/workflows/vlsi_matrix_builder.mjs"
@@ -62,5 +57,5 @@ function gt_pullHook_random_matrix_after() {
 		echo "da"
 		insertIntoVlsiMatrixBuilder
 	fi
-
 }
+pull_hook_after "$@"
