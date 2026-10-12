@@ -1,6 +1,5 @@
 #@ Version: 1.3.0
 tag	file	relativeTarget	tagFilter	hasPlaceholder	sha512
-v4.12.4	src/setup.sh	../lib/tegonal-scripts/src/setup.sh	.*	false	7bf1bbb676a7c3ec4ff7c904c2df82f82a7048d33d623b58c64e46e75547e4c79593c4c7988bf5527d1df082ac7c53f58c1f3b4e6b9b86416eded4fcb7250445
 v4.12.4	src/qa/run-shellcheck.sh	../lib/tegonal-scripts/src/qa/run-shellcheck.sh	.*	false	76178db203ef11d5df70156fda016d7188e0a83bdb04cb609f346dc24a42ca08e8bf4827dd17f4fd29dded38b0ecf27d9fc60cc08f9b319e99c3983780a9be52
 v4.12.4	src/ci/install-shellcheck.sh	../lib/tegonal-scripts/src/ci/install-shellcheck.sh	.*	false	cfc4b6b30ebd9d1a1ef1215dd7038ec11804515aa651cc47d24a4b2bf5300f8e62c1d2c4683065f8d802ec800ee088b19fb7f0b81a79928768401607f2fc1637
 v4.12.4	src/ci/install-shfmt.sh	../lib/tegonal-scripts/src/ci/install-shfmt.sh	.*	false	3b6a7c342fd4d41826f51cee8d87172527a7c878ac89b4cb0cec86713275a31fb89866a9341e8f000b35c46599ba9289a10268035e99757e7d0cf17b4388a429
