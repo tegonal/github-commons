@@ -47,7 +47,7 @@ gt pull -r tegonal-gh-commons -p src/.github/dependabot.yml --chop-path true -d 
 # Placeholders
 
 Some files contain placeholders which you should replace.
-We provide bash functions which you can source into your pull-hook.sh and use to fill the placeholders.
+We provide bash functions which you can source into your pull-hook-before.sh and use to fill the placeholders.
 Get them was well via [gt](https://github.com/tegonal/gt):
 ```
 gt pull -r tegonal-gh-commons -p src/gt/pull-hook-functions.sh
@@ -76,21 +76,19 @@ if ! [[ -v dir_of_tegonal_scripts ]]; then
 fi
 
 source "$dir_of_github_commons/gt/pull-hook-functions.sh"
+sourceOnce "$dir_of_tegonal_scripts/utility/parse-fn-args.sh"
 
-# tegonal's github-commons was fetched with gt and remote is named tegonal_gh_commons
-function gt_pullHook_tegonal_gh_commons_before() {
-	local _tag=$1 source=$2 _target=$3
-	shift 3 || die "could not shift by 3"
+function pull_hook_before() {
+	local _currentTag _tag source _target
+	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
+	local -ra params=(_currentTag _tag source _target)
+	parseFnArgs params "$@"
 
 	# replaces placeholders in all files github-commons provides with placeholders
 	replaceTegonalGhCommonsPlaceholders "$source" "my-project-name" "$MY_PROJECT_LATEST_VERSION" \
 		"MyCompanyName, Country" "code-of-conduct@my-company.com" "my-companies-github-name" "my-project-github-name"
 }
-
-function gt_pullHook_tegonal_gh_commons_after() {
-	# no op, nothing to do (or replace with your logic)
-	:
-}
+pull_hook_before "$@"
 ```
 
 </gt-pull-hook-functions>

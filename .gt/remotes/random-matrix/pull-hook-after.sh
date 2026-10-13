@@ -21,7 +21,6 @@ sourceOnce "$dir_of_github_commons/gt/pull-hook-functions.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/parse-fn-args.sh"
 
 function pull_hook_after() {
-	# no op, nothing to do
 	local _currentTag _tag source target
 	# shellcheck disable=SC2034   # is passed to parseFnArgs by name
 	local -ra params=(_currentTag _tag source target)
