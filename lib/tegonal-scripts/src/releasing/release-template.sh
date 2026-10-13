@@ -6,7 +6,7 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Apache License 2.0
 #         /___/                           Please report bugs and contribute back your improvements
 #
-#                                         Version: v4.13.0
+#                                         Version: v5.0.0
 #######  Description  #############
 #
 #  Defines a release process template where some conventions are defined:
@@ -40,7 +40,7 @@
 #    	# or
 #    	sbt test publishedSigned
 #    }
-#    # make the function visible to release-templates.sh / not necessary if you source release-templates.sh, see further below
+#    # make the function visible to release-template.sh / not necessary if you source release-template.sh, see further below
 #    declare -fx releaseScalaLib
 #
 #    # releases version v0.1.0 using releaseScalaLib as hook
@@ -80,7 +80,7 @@
 set -euo pipefail
 shopt -s inherit_errexit || { echo >&2 "please update to bash 5, see errors above" && exit 1; }
 unset CDPATH
-export TEGONAL_SCRIPTS_VERSION='v4.13.0'
+export TEGONAL_SCRIPTS_VERSION='v5.0.0'
 
 if ! [[ -v dir_of_tegonal_scripts ]]; then
 	dir_of_tegonal_scripts="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null && pwd 2>/dev/null)/.."
@@ -92,12 +92,13 @@ sourceOnce "$dir_of_tegonal_scripts/releasing/pre-release-checks-git.sh"
 sourceOnce "$dir_of_tegonal_scripts/releasing/update-version-common-steps.sh"
 
 function releaseTemplate() {
-	source "$dir_of_tegonal_scripts/releasing/params/release-template.params.source.sh"
-	source "$dir_of_tegonal_scripts/releasing/params/release-template.params-definition.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/release-template.params.source.sh" || traceAndDie "could not source release-template.params.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/release-template.params-definition.source.sh" || traceAndDie "could not source release-template.params-definition.source.sh"
 	parseArguments releaseTemplateParams "" "$TEGONAL_SCRIPTS_VERSION" "$@" || return $?
-	source "$dir_of_tegonal_scripts/releasing/params/release-template.default-args.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/release-template.default-args.source.sh" || traceAndDie "could not source release-template.default-args.source.sh"
 	exitIfNotAllArgumentsSet releaseTemplateParams "" "$TEGONAL_SCRIPTS_VERSION"
 
+	exitIfArgIsNotBoolean "$prepareOnly" "$prepareOnlyParamPatternLong"
 	exitIfArgIsNotFunction "$releaseHook" "$releaseHookParamPatternLong"
 	exitIfArgIsNotFunction "$beforePrFn" "$beforePrFnParamPatternLong"
 	exitIfArgIsNotFunction "$prepareNextDevCycleFn" "$prepareNextDevCycleFnParamPatternLong"
@@ -135,6 +136,9 @@ function releaseTemplate() {
 		else
 			git tag "$version" || die "could not create tag $version"
 		fi
+
+		logInfo "Release completed, going to prepare next development cycle for %s by calling" "$nextVersion" \
+			"$prepareNextDevCycleFn $versionParamPatternLong $nextVersion $additionalPatternParamPatternLong $additionalPattern $projectsRootDirParamPatternLong $projectsRootDir $beforePrFnParamPatternLong $beforePrFn"
 
 		"$prepareNextDevCycleFn" \
 			"$versionParamPatternLong" "$nextVersion" \
