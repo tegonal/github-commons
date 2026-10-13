@@ -23,37 +23,31 @@ sourceOnce "$scriptsDir/before-pr.sh"
 sourceOnce "$scriptsDir/update-version-in-non-sh-files.sh"
 
 function prepareNextDevCycle() {
-	source "$dir_of_tegonal_scripts/releasing/common-constants.source.sh" || die "could not source common-constants.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/prepare-files-next-dev-cycle.params.source.sh" || traceAndDie "could not source prepare-files-next-dev-cycle.params.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/prepare-files-next-dev-cycle.params-definition.source.sh" || traceAndDie "could not source prepare-files-next-dev-cycle.params-definition.source.sh"
+	parseArguments prepareFilesNextDevCycleParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
+	source "$dir_of_tegonal_scripts/releasing/params/prepare-files-next-dev-cycle.default-args.source.sh" || die "could not source prepare-files-next-dev-cycle.default-args.source.sh"
+	exitIfNotAllArgumentsSet prepareFilesNextDevCycleParams "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
-	# shellcheck disable=SC2034   # they seem unused but are necessary in order that parseArguments doesn't create global readonly vars
-	local version projectsRootDir additionalPattern beforePrFn
-	# shellcheck disable=SC2034   # is passed by name to parseArguments
-	local -ra params=(
-		version "$versionParamPattern" 'the version for which we prepare the dev cycle'
-		projectsRootDir "$projectsRootDirParamPattern" "$projectsRootDirParamDocu"
-		additionalPattern "$additionalPatternParamPattern" "is ignored as additional pattern is specified internally, still here as release-files uses this argument"
-		beforePrFn "$beforePrFnParamPattern" "$beforePrFnParamDocu"
-	)
-	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
-	# we don't check if all args are set (and neither set default values for most) as we currently don't use
-	# any param in here (except for projectsRootDir) but just delegate to prepareFilesNextDevCycle.
-	if ! [[ -v projectsRootDir ]]; then projectsRootDir=$(realpath ".") || die "could not determine realpath of ."; fi
+	local -a prepareFilesNextDevCycleTemplateArgs
+	addLocalVarMatchingParamNamesToArgs prepareFilesNextDevCycleTemplateParams prepareFilesNextDevCycleTemplateArgs
 
 	function prepare_next_afterVersionHook() {
-		local version projectsRootDir additionalPattern
-		parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
+		source "$dir_of_tegonal_scripts/releasing/params/after-version-update-hook.params.source.sh" || traceAndDie "could not source after-version-update-hook.params.source.sh"
+		source "$dir_of_tegonal_scripts/releasing/params/after-version-update-hook.params-definition.source.sh" || traceAndDie "could not source after-version-update-hook.params-definition.source.sh"
+		parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
+		exitIfNotAllArgumentsSet afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
 		updateVersionInNonShFiles -v "$version-SNAPSHOT" --project-dir "$projectsRootDir"
 	}
 
 	# similar as in release.sh, you might need to update it there as well if you change something here
-	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
+	local -r ownAdditionalPattern="(TEGONAL_GITHUB_COMMONS_VERSION=['\"])[^'\"]+(['\"])"
 
-	prepareFilesNextDevCycle \
-		--project-dir "$projectsRootDir" \
-		"$@" \
-		--pattern "$additionalPattern" \
-		--after-version-update-hook prepare_next_afterVersionHook
+	prepareFilesNextDevCycleTemplate "${prepareFilesNextDevCycleTemplateArgs[@]}" \
+		"$additionalPatternParamPatternLong" "$ownAdditionalPattern" \
+		"$afterVersionUpdateHookParamPatternLong" prepare_next_afterVersionHook
+
 }
 
 ${__SOURCED__:+return}

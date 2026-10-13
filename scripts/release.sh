@@ -24,22 +24,14 @@ sourceOnce "$scriptsDir/prepare-next-dev-cycle.sh"
 sourceOnce "$scriptsDir/update-version-in-non-sh-files.sh"
 
 function release() {
-	source "$dir_of_tegonal_scripts/releasing/common-constants.source.sh" || die "could not source common-constants.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/release-files.params.source.sh" || traceAndDie "could not source release-files.params.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/release-files.params-definition.source.sh" || traceAndDie "could not source release-files.params-definition.source.sh"
+	parseArguments releaseFilesParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
+	source "$dir_of_tegonal_scripts/releasing/params/release-files.default-args.source.sh" || die "could not source release-files.default-args.source.sh"
+	exitIfNotAllArgumentsSet releaseFilesParams "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
-	local version
-	# shellcheck disable=SC2034   # they seem unused but are necessary in order that parseArguments doesn't create global readonly vars
-	local key branch nextVersion prepareOnly
-	# shellcheck disable=SC2034   # is passed by name to parseArguments
-	local -ra params=(
-		version "$versionParamPattern" "$versionParamDocu"
-		key "$keyParamPattern" "$keyParamDocu"
-		branch "$branchParamPattern" "$branchParamDocu"
-		nextVersion "$nextVersionParamPattern" "$nextVersionParamDocu"
-		prepareOnly "$prepareOnlyParamPattern" "$prepareOnlyParamDocu"
-	)
-	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
-	# we don't check if all args are set (and neither set default values) as we currently don't use
-	# any param in here but just delegate to prepareFilesNextDevCycle.
+	local -a releaseFilesTemplateArgs
+	addLocalVarMatchingParamNamesToArgs releaseFilesTemplateParams releaseFilesTemplateArgs
 
 	function findFilesToRelease() {
 		find "$projectDir/src" \
@@ -48,8 +40,10 @@ function release() {
 	}
 
 	function release_afterVersionHook() {
-		local version projectsRootDir additionalPattern
-		parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
+		source "$dir_of_tegonal_scripts/releasing/params/after-version-update-hook.params.source.sh" || traceAndDie "could not source after-version-update-hook.params.source.sh"
+		source "$dir_of_tegonal_scripts/releasing/params/after-version-update-hook.params-definition.source.sh" || traceAndDie "could not source after-version-update-hook.params-definition.source.sh"
+		parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
+		exitIfNotAllArgumentsSet afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
 		updateVersionInNonShFiles -v "$version" --project-dir "$projectsRootDir"
 
@@ -60,12 +54,13 @@ function release() {
 
 	# similar as in prepare-next-dev-cycle.sh, you might need to update it there as well if you change something here
 	local -r additionalPattern="(TEGONAL_GITHUB_COMMONS_(?:LATEST_)?VERSION=['\"])[^'\"]+(['\"])"
-	releaseFiles \
-		--project-dir "$projectDir" \
-		--pattern "$additionalPattern" \
-		"$@" \
-		--sign-fn findFilesToRelease \
-		--after-version-update-hook release_afterVersionHook
+
+	releaseFilesTemplate \
+		"$projectsRootDirParamPatternLong" "$projectDir" \
+		"$additionalPatternParamPatternLong" "$additionalPattern" \
+		"${releaseFilesTemplateArgs[@]}" \
+		"$findForSigningParamPatternLong" findScripts \
+		"$afterVersionUpdateHookParamPatternLong" release_afterVersionHook
 }
 
 ${__SOURCED__:+return}
