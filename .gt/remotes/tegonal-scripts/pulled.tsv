@@ -66,3 +66,4 @@ v5.0.0	src/ci/install-shellcheck.sh	../lib/tegonal-scripts/src/ci/install-shellc
 v5.0.0	src/ci/install-shfmt.sh	../lib/tegonal-scripts/src/ci/install-shfmt.sh	.*	false	80e814008d1a4f2137aa3a1b08a58d09367ed1d9e166929bf8f074cef65bbcd5237ea42b412ee89ac525a2e891eb10178da209870d9fb55c28978b3f2fef10ca
 v5.0.0	src/qa/run-shfmt.sh	../lib/tegonal-scripts/src/qa/run-shfmt.sh	.*	false	e385f4512c8275b1743edebcff933b08689c67bb2865395350a80d1f666c1b313511fa74b15db2d661970125843ea923277bb54a2cc2621176b661d4f15c89b8
 v5.0.0	src/setup_tegonal_scripts.sh	../lib/tegonal-scripts/src/setup_tegonal_scripts.sh	.*	false	4ac1cc7470861e3bbcb3a5f0ba4d19c1d79766900fa19897103edffc18d814b421763dc17aacae469770af9470710ce0b781aeb9e2fcf3aeffc1f3eccefb27d4
+v5.1.0	src/qa/check-help-callable.sh	../lib/tegonal-scripts/src/qa/check-help-callable.sh	.*	false	68540930313dff998d5d1db920e16fd84e5215370688f99c513d2c89bdb40f6144c5b2a906b3b7529b088d41cb6252d421d2ae95add8efe1571c2952c14fe7dd

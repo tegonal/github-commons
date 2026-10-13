@@ -21,20 +21,14 @@ source "$scriptsDir/dirs.source.sh"
 sourceOnce "$dir_of_tegonal_scripts/utility/parse-args.sh"
 
 function updateVersionInNonShFiles() {
-	source "$dir_of_tegonal_scripts/releasing/common-constants.source.sh" || die "could not source common-constants.source.sh"
-	local version projectsRootDir
-	# shellcheck disable=SC2034   # is passed by name to parseArguments
-	local -ra params=(
-		version "$versionParamPattern" "$versionParamDocu"
-		projectsRootDir "$projectsRootDirParamPattern" "$projectsRootDirParamDocu"
-	)
-	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
-	exitIfNotAllArgumentsSet params "" "$TEGONAL_GITHUB_COMMONS_VERSION"
+	source "$dir_of_tegonal_scripts/releasing/params/after-version-update-hook.params.source.sh" || traceAndDie "could not source after-version-update-hook.params.source.sh"
+	source "$dir_of_tegonal_scripts/releasing/params/after-version-update-hook.params-definition.source.sh" || traceAndDie "could not source after-version-update-hook.params-definition.source.sh"
+	parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
+	exitIfNotAllArgumentsSet afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
 	logInfo "going to update version in non-sh files to %s" "$version"
 
-	find "$projectsRootDir/src" -type f \
-		-not -name "*.sh" -print0 |
+	find "$projectsRootDir/src" -type f -not -name "*.sh" -print0 |
 		while read -r -d $'\0' file; do
 			perl -0777 -i -pe "s@((?:#|//) {4,}Version: ).*@\${1}$version@g;" "$file"
 		done
