@@ -28,7 +28,8 @@ function updateVersionInNonShFiles() {
 		version "$versionParamPattern" "$versionParamDocu"
 		projectsRootDir "$projectsRootDirParamPattern" "$projectsRootDirParamDocu"
 	)
-	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@"
+	parseArguments params "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
+	exitIfNotAllArgumentsSet params "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
 	logInfo "going to update version in non-sh files to %s" "$version"
 
