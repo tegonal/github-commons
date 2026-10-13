@@ -16,15 +16,16 @@ if ! [[ -v scriptsDir ]]; then
 	readonly scriptsDir
 fi
 source "$scriptsDir/dirs.source.sh"
-
-sourceOnce "$scriptsDir/run-shellcheck.sh"
+sourceOnce "$scriptsDir/check-help-callable.sh"
 sourceOnce "$scriptsDir/cleanup-on-push-to-main.sh"
+sourceOnce "$scriptsDir/run-shellcheck.sh"
 
 function beforePr() {
 	# using && because this function is used on the left side of an || in releaseFiles
 	# this way we still have fail fast behaviour and don't mask/hide a non-zero exit code
 	customRunShellcheck &&
-		cleanupOnPushToMain
+		cleanupOnPushToMain &&
+		customCheckHelpCallable
 }
 
 ${__SOURCED__:+return}

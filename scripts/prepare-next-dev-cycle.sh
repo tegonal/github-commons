@@ -18,7 +18,7 @@ if ! [[ -v scriptsDir ]]; then
 fi
 source "$scriptsDir/dirs.source.sh"
 
-sourceOnce "$dir_of_tegonal_scripts/releasing/prepare-files-next-dev-cycle.sh"
+sourceOnce "$dir_of_tegonal_scripts/releasing/prepare-files-next-dev-cycle-template.sh"
 sourceOnce "$scriptsDir/before-pr.sh"
 sourceOnce "$scriptsDir/update-version-in-non-sh-files.sh"
 
@@ -38,7 +38,10 @@ function prepareNextDevCycle() {
 		parseArguments afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION" "$@" || return $?
 		exitIfNotAllArgumentsSet afterVersionHookParams "" "$TEGONAL_GITHUB_COMMONS_VERSION"
 
-		updateVersionInNonShFiles -v "$version-SNAPSHOT" --project-dir "$projectsRootDir"
+		local -a updateVersionInNonShFilesArgs
+		addLocalVarMatchingParamNamesToArgs afterVersionHookParams updateVersionInNonShFilesArgs
+
+		updateVersionInNonShFiles "${updateVersionInNonShFilesArgs[@]}" -v "$version-SNAPSHOT"
 	}
 
 	# similar as in release.sh, you might need to update it there as well if you change something here
