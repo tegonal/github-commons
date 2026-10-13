@@ -7,14 +7,14 @@
 #  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under European Union Public License 1.2
 #         /___/                           Please report bugs and contribute back your improvements
 #
-#                                         Version: v4.13.0
+#                                         Version: v5.0.0
 #######  Description  #############
 #
 #  constants intended to be sourced into a function
 #
 ###################################
 
-local -r versionRegex="^(v[0-9]+)\.([0-9]+)\.[0-9]+(-RC[0-9]+)?$"
+local -r versionRegex="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-(alpha|beta|RC)(\.[0-9]+)+)?$"
 
 local -r versionParamPatternLong='-v'
 local -r versionParamPattern="$versionParamPatternLong"
